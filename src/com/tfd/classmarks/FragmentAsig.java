@@ -58,7 +58,7 @@ public class FragmentAsig extends Fragment{
 		//Configuración de objetos
 		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Light.ttf");
 		
-		TextView txt = (TextView)fragment.findViewById(R.id.textViewAnd);
+		final TextView txt = (TextView)fragment.findViewById(R.id.textViewAnd);
         txt.setText(mText);
         txt.setTypeface(tf);
         
@@ -73,20 +73,20 @@ public class FragmentAsig extends Fragment{
 		
         final TextView txttotal = (TextView)fragment.findViewById(R.id.TVtotal);
 		final TextView txtmedia = (TextView)fragment.findViewById(R.id.TVmedia);
-		final TextView txtnotaexfin = (TextView)fragment.findViewById(R.id.TVnotaexfinal);
-		final TextView txtsobre = (TextView)fragment.findViewById(R.id.TVsobre);
-		
+		final TextView txtnotaneeded = (TextView)fragment.findViewById(R.id.TVnotaneeded);
+//		final TextView txtnotaexfin = (TextView)fragment.findViewById(R.id.TVnotaexfinal);
+//		final TextView txtsobre = (TextView)fragment.findViewById(R.id.TVsobre);
+//		
 		txttotal.setTypeface(tf);
 		txtmedia.setTypeface(tf);
-		txtnotaexfin.setTypeface(tf);
-		txtsobre.setTypeface(tf);
+		txtnotaneeded.setTypeface(tf);
 
-		txtnotaexfin.setOnClickListener(new View.OnClickListener() {	
-			@Override
-			public void onClick(View v) {
-				calcularNotaFinal();
-				}
-		});
+//		txtnotaexfin.setOnClickListener(new View.OnClickListener() {	
+//			@Override
+//			public void onClick(View v) {
+//				calcularNotaFinal();
+//				}
+//		});
 		
 		TextView tvcrearnota = (TextView)footer.findViewById(R.id.tvanadir);
 		tvcrearnota.setTypeface(tf);
@@ -110,13 +110,12 @@ public class FragmentAsig extends Fragment{
 				double txtmed = Math.round((txttot/(txtsob/ 100))*100.0)/100.0;
 				
 				if(txtmed >= 5){
-				txtsobre.setText(getString(R.string.Sobre)+" "+txtsob+ " %");
+				txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_verde, 0, 0, 0);
 				}else{
-					txtsobre.setText(getString(R.string.Sobress)+" "+txtsob+ " %");
+					txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_rojo, 0, 0, 0);
 					}
 				txttotal.setText(getString(R.string.Total)+ " "+txttot);
 				txtmedia.setText(getString(R.string.Media)+" "+ txtmed);
-				txtnotaexfin.setText(getString(R.string.recuadroo));
 				
 				return true;
 			}
@@ -138,13 +137,12 @@ public class FragmentAsig extends Fragment{
 		double txtmed = Math.round((txttot/(txtsob/ 100))*100.0)/100.0;
 		
 		if(txtmed >= 5){
-		txtsobre.setText(getString(R.string.Sobre)+" "+txtsob+ " %");
+			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_verde, 0, 0, 0);
 		}else{
-			txtsobre.setText(getString(R.string.Sobress)+" "+txtsob+ " %");
+			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_rojo, 0, 0, 0);
 			}
 		txttotal.setText(getString(R.string.Total)+ " "+txttot);
 		txtmedia.setText(getString(R.string.Media)+" "+ txtmed);
-		txtnotaexfin.setText(getString(R.string.recuadroo));
 		
 		cn.closeDB();
 		db.close();
