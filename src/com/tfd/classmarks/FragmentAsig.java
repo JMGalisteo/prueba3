@@ -37,8 +37,7 @@ public class FragmentAsig extends Fragment{
 	public Principal prin;
 	//holaaaa
 	@Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final ArrayList<Item> items = new ArrayList<Item>();
 		final ListAdapter adap = new ListAdapter(getActivity(), items);
 		adap.notifyDataSetChanged();
