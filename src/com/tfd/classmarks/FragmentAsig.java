@@ -35,7 +35,7 @@ public class FragmentAsig extends Fragment{
 	public TextView txtnotaexfin, txttotal, txtmedia, txtsobre, txtañadir;
 	public ListView lv;
 	public Principal prin;
-	
+	//holaaaa
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
