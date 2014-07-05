@@ -30,7 +30,7 @@ import android.widget.Toast;
 
 @SuppressLint("ValidFragment")
 public class FragmentAsig extends Fragment{
-	//Borrado
+	//Borrado//shieeeeet
 	public String mText;
 	public TextView txtnotaexfin, txttotal, txtmedia, txtsobre, txtañadir;
 	public ListView lv;
