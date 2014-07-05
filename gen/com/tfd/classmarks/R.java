@@ -239,21 +239,22 @@ public final class R {
     public static final class drawable {
         public static final int back_presentacion=0x7f020000;
         public static final int borde=0x7f020001;
-        public static final int button_shape=0x7f020002;
-        public static final int classmarks=0x7f020003;
-        public static final int colorprincipal=0x7f020004;
-        public static final int cruz_eliminar=0x7f020005;
-        public static final int dialogfootershape=0x7f020006;
-        public static final int dialogheadshape=0x7f020007;
-        public static final int edittext_shape=0x7f020008;
-        public static final int icono_cm=0x7f020009;
-        public static final int icono_cm_desktop=0x7f02000a;
-        public static final int indicador_rojo=0x7f02000b;
-        public static final int indicador_verde=0x7f02000c;
-        public static final int round=0x7f02000d;
-        public static final int rounded=0x7f02000e;
-        public static final int spinner_prompt=0x7f02000f;
-        public static final int subjectmas=0x7f020010;
+        public static final int borde_inferior_resultados=0x7f020002;
+        public static final int button_shape=0x7f020003;
+        public static final int classmarks=0x7f020004;
+        public static final int colorprincipal=0x7f020005;
+        public static final int cruz_eliminar=0x7f020006;
+        public static final int dialogfootershape=0x7f020007;
+        public static final int dialogheadshape=0x7f020008;
+        public static final int edittext_shape=0x7f020009;
+        public static final int icono_cm=0x7f02000a;
+        public static final int icono_cm_desktop=0x7f02000b;
+        public static final int indicador_rojo=0x7f02000c;
+        public static final int indicador_verde=0x7f02000d;
+        public static final int round=0x7f02000e;
+        public static final int rounded=0x7f02000f;
+        public static final int spinner_prompt=0x7f020010;
+        public static final int subjectmas=0x7f020011;
     }
     public static final class id {
         public static final int TVmedia=0x7f080006;
