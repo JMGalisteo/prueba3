@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layoutModificarNota"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <TextView
+        android:id="@+id/textviewAsignatura"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+          android:clickable="true"
+        android:gravity="center"
+          android:text="Asignatura"
+          android:textSize="40sp"
+     android:textColor="#FFFFFF"
+        android:background="@drawable/dialogheadshape"/>
+
+    <LinearLayout
+        android:id="@+id/layoutModificarNota"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:paddingTop="20dp"
+        android:layout_below="@id/textviewAsignatura"
+        android:background="@drawable/dialogfootershape"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textviewNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edittextNombre"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:textSize="22sp"
+                android:text="Nombre" />
+
+            <EditText
+                android:id="@+id/edittextNombre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:ems="8"
+                android:maxLines="1" 
+	           	android:background="@drawable/edittext_shape"
+	           	android:inputType="textCapSentences"
+	           	android:hint="Introducir nombre">
+            </EditText>
+            
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textviewPorcentaje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edittextPorcentaje"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:textSize="22sp"
+                android:text="Porcentaje" />
+
+            <EditText
+                android:id="@+id/edittextPorcentaje"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:ems="5"
+                android:maxLines="1"
+                android:numeric="decimal" 
+                android:background="@drawable/edittext_shape"
+	           	android:hint="%"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/textviewNota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/edittextNota"
+                android:layout_gravity="left"
+                android:layout_marginLeft="10dp"
+                android:textSize="22sp"
+                android:text="Nota" />
+
+            <EditText
+                android:id="@+id/edittextNota"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:ems="5"
+                android:maxLines="1"
+                android:numeric="decimal" 
+                android:background="@drawable/edittext_shape">
+            </EditText>
+        </RelativeLayout>
+
+        <LinearLayout
+	     android:id="@+id/layoutModificarAsigButtons"
+	     android:layout_width="match_parent"
+	     android:layout_height="wrap_content"
+	     android:gravity="center"
+	     android:orientation="horizontal" >
+	     
+	     <Button
+	         android:id="@+id/buttonModificarNota"
+	         android:layout_width="101dp"
+	         android:layout_height="wrap_content"
+	         android:layout_marginBottom="20dp"
+	         android:layout_marginRight="15dp"
+	         android:layout_marginTop="20dp"
+	         android:background="@drawable/button_shape"
+	         android:focusable="false"
+	         android:gravity="center_horizontal"
+	         android:textColor="#FFFFFF"
+	         android:text="Modificar"
+	         android:textSize="20sp" 
+	         android:padding="10dp"/>
+	     
+	     <Button
+	         android:id="@+id/buttonSalirNota"
+	         android:layout_width="101dp"
+	         android:layout_height="wrap_content"
+	         android:layout_marginBottom="20dp"
+	         android:layout_marginLeft="15dp"
+	         android:layout_marginTop="20dp"
+	         android:background="@drawable/button_shape"
+	         android:focusable="false"
+	         android:gravity="center_horizontal"
+	         android:textColor="#FFFFFF"
+	         android:padding="10dp"
+	         android:text="Cancelar"
+	         android:textSize="20sp" />	
+	     
+		</LinearLayout>
+    </LinearLayout>
+
+</RelativeLayout>

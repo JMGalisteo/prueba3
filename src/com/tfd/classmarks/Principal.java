@@ -54,7 +54,7 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 	RelativeLayout resul;
 	Intent in;
 	Spinner spinner;
-	
+	int IDmodif;
 	TextView mAdd;
     ViewPager mPager;
     FragmentAsig And = new FragmentAsig();
@@ -63,7 +63,10 @@ public class Principal extends FragmentActivity implements FragmentProvider {
     MyPagerAdapter mAdapter;
 
     ArrayList<Fragment> frags = new ArrayList<Fragment>();
-    
+  
+	public void setIDmodif(int id){
+    	IDmodif= id;
+    }
     @Override
     public Fragment getFragmentForPosition(int position) {
         return frags.get(position);
@@ -277,7 +280,7 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 						Asignatura.setIdcuatrimestre(cn.IdCuatrimestre(spinner.getSelectedItem().toString()));							
 						cn.InsertarAsignatura(Asignatura);
 						
-						frags.add(new FragmentAsig(asign));
+						frags.add(Asignatura.getId(),new FragmentAsig(asign));
 				        mAdapter.notifyDataSetChanged();
 
 						cn.closeDB();
@@ -419,6 +422,135 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 		    dialog1.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 		    return dialog1;
 
+		case 2:
+			//Añadir nota
+
+			LayoutInflater inflater2=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			View modifNota = inflater2.inflate(R.layout.modificarnota_act, null);
+			
+			BaseDatos cn1 = new BaseDatos(getApplicationContext());
+			SQLiteDatabase db1 = cn1.getReadableDatabase();
+
+			ClaseCuatrimestres cuatri1 = cn1.getCuatrimestreDataBase(spinner.getSelectedItem().toString());
+			ClaseNotas notamodif =cn1.getNotaDataBase(IDmodif);
+			
+			Typeface tf11 = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
+			Typeface tft11 = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Light.ttf");
+			TextView txt31 = (TextView)modifNota.findViewById(R.id.textviewAsignatura);
+			String nom1 = cuatri1.getAsignatura(mPager.getCurrentItem()).getNombre();
+			
+			txt31.setText(nom1);
+			txt31.setTypeface(tf11);
+
+			TextView txt41 =(TextView)modifNota.findViewById(R.id.textviewNombre);
+			//txt41.setText(notamodif.getEvaluable());
+
+			txt41.setTypeface(tf11);
+			
+			TextView txt51 =(TextView)modifNota.findViewById(R.id.textviewPorcentaje);
+			//txt51.setText(""+notamodif.getPorcentaje());
+
+			txt51.setTypeface(tf11);
+			
+			TextView txt61 =(TextView)modifNota.findViewById(R.id.textviewNota);
+			//txt61.setText(""+notamodif.getNota());
+
+			txt61.setTypeface(tf11);
+
+			final EditText edtxtnombreexa1 = (EditText)modifNota.findViewById(R.id.edittextNombre);
+			edtxtnombreexa1.setTypeface(tf11);
+			final EditText edtxtporcetaje1 = (EditText)modifNota.findViewById(R.id.edittextPorcentaje);
+			edtxtporcetaje1.setTypeface(tf11);
+			final EditText edtxtnota1 = (EditText)modifNota.findViewById(R.id.edittextNota);
+			edtxtnota1.setTypeface(tf11);
+			
+			edtxtnombreexa1.setMaxLines(1);
+			edtxtnombreexa1.setLines(1);
+			edtxtnombreexa1.setText(notamodif.getEvaluable());
+
+			edtxtporcetaje1.setMaxLines(1);
+			edtxtporcetaje1.setLines(1);
+			edtxtporcetaje1.setText(""+notamodif.getPorcentaje());
+
+			edtxtnota1.setMaxLines(1);
+			edtxtnota1.setLines(1);
+			edtxtnota1.setText(""+notamodif.getNota());
+
+
+			Button btn21 = (Button)modifNota.findViewById(R.id.buttonModificarNota);
+			btn21.setTypeface(tft11);
+			
+			Button btn31 = (Button)modifNota.findViewById(R.id.buttonSalirNota);
+			btn31.setTypeface(tft11);
+			
+			cn1.closeDB();
+			db1.close();
+
+			btn21.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					boolean verdad = true;
+					if (edtxtnombreexa1.getText().length()==0)
+					{
+						verdad = false;
+					}
+					if (edtxtporcetaje1.getText().length()==0)
+					{
+						verdad = false;
+					}
+					if (edtxtnota1.getText().length()==0)
+					{
+						verdad = false;
+					}
+					
+					if (verdad ==true)
+					{
+						BaseDatos cn2 = new BaseDatos(getApplicationContext());
+						SQLiteDatabase db2 = cn2.getWritableDatabase();
+
+						String nombreexa = edtxtnombreexa1.getText().toString();
+						String porcetajeex = edtxtporcetaje1.getText().toString();
+						String notaex = edtxtnota1.getText().toString();
+
+						ClaseNotas notas = new ClaseNotas();
+						ClaseCuatrimestres cuatri2 = cn2.getCuatrimestreDataBase(spinner.getSelectedItem().toString());						
+						
+						notas.setId(IDmodif);
+						notas.setEvaluable(nombreexa);
+						notas.setNota(Double.parseDouble(notaex));	
+						notas.setPorcentaje(Double.parseDouble(porcetajeex));
+						notas.setIdasignatura(cuatri2.getAsignatura(mPager.getCurrentItem()).getId());
+					    
+						cn2.updateNota(notas);
+						cn2.closeDB();
+						db2.close();
+						dismissDialog(2);
+						mAdapter.notifyDataSetChanged();
+						
+
+						edtxtporcetaje1.setText("");
+						edtxtnota1.setText("");
+						edtxtnombreexa1.setText("");
+						edtxtnombreexa1.requestFocus();
+					}
+					else
+						Toast.makeText(getApplicationContext(),"¡Falta campos por rellenar!",Toast.LENGTH_SHORT).show();	
+				}
+			});
+			
+			btn31.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					dismissDialog(2);
+				}
+			});
+			
+			Dialog dialog2 = new Dialog(this);
+			dialog2.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			dialog2.setContentView(modifNota);
+		    dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+		    dialog2.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+		    return dialog2;
 		}
 		return null;
 
@@ -442,6 +574,25 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 				txt3.setText(nom);
 				EditText ed = (EditText)dialog.findViewById(R.id.edittextNombre);
 				ed.requestFocus();
+				break;
+				
+			case 2:	
+				ClaseCuatrimestres cuatri1 = cn.getCuatrimestreDataBase(spinner.getSelectedItem().toString());
+				ClaseNotas notamodif =cn.getNotaDataBase(IDmodif);
+				String nom1 = cuatri1.getAsignatura(mPager.getCurrentItem()).getNombre();
+				TextView txt31 = (TextView)dialog.findViewById(R.id.textviewAsignatura);
+				txt31.setText(nom1);
+				EditText ed1 = (EditText)dialog.findViewById(R.id.edittextNombre);
+				ed1.requestFocus();
+				
+				final EditText edtxtnombreexa1 = (EditText)dialog.findViewById(R.id.edittextNombre);
+				final EditText edtxtporcetaje1 = (EditText)dialog.findViewById(R.id.edittextPorcentaje);
+				final EditText edtxtnota1 = (EditText)dialog.findViewById(R.id.edittextNota);
+				edtxtnombreexa1.setText(notamodif.getEvaluable());
+
+				edtxtporcetaje1.setText(""+notamodif.getPorcentaje());
+
+				edtxtnota1.setText(""+notamodif.getNota());
 				break;
 		}
 		

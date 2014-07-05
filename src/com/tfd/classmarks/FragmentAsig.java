@@ -2,8 +2,13 @@ package com.tfd.classmarks;
 
 import java.util.ArrayList;
 
+import com.tfd.classmarks.QuickAction;
+import com.tfd.classmarks.ActionItem;
+import com.tfd.classmarks.Principal;
+
 import mysql.BaseDatos;
 import mysql.ClaseAsignaturas;
+import mysql.ClaseNotas;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
@@ -30,7 +35,10 @@ import android.widget.Toast;
 
 @SuppressLint("ValidFragment")
 public class FragmentAsig extends Fragment{
-	//Borrado//shieeeeet
+	private int EliminarID;
+	public int ModifID;
+	private static final int ID_EDIT     = 1;
+	private static final int ID_ELIMINAR   = 2;
 	public String mText;
 	public TextView txtnotaexfin, txttotal, txtmedia, txtsobre, txtañadir;
 	public ListView lv;
@@ -42,6 +50,7 @@ public class FragmentAsig extends Fragment{
 		final ListAdapter adap = new ListAdapter(getActivity(), items);
 		adap.notifyDataSetChanged();
 		
+
 		View footer = ((LayoutInflater)getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.listview_forma_footer, null, false);
 		footer.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -50,18 +59,19 @@ public class FragmentAsig extends Fragment{
 			}
 		});
 		
+
 		final BaseDatos cn = new BaseDatos(this.getActivity());
 		SQLiteDatabase db = cn.getReadableDatabase();
-
+		
 		View fragment = inflater.inflate(R.layout.asignatura_frag, container, false);
-		
-		//Configuración de objetos
+
+		// Configuración de objetos
 		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Light.ttf");
-		
-		TextView txt = (TextView)fragment.findViewById(R.id.textViewAnd);
-        txt.setText(mText);
-        txt.setTypeface(tf);
-        
+
+		TextView txt = (TextView) fragment.findViewById(R.id.textViewAnd);
+		txt.setText(mText);
+		txt.setTypeface(tf);
+
         txt.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
@@ -87,7 +97,61 @@ public class FragmentAsig extends Fragment{
 				calcularNotaFinal();
 				}
 		});
-		
+
+		// BOCADILLO DE MODIFICAR
+		ActionItem editItem = new ActionItem(ID_EDIT, "Edit", getResources()
+				.getDrawable(R.drawable.menu_down_arrow));
+		ActionItem eliminarItem = new ActionItem(ID_ELIMINAR, "Eliminar",
+				getResources().getDrawable(R.drawable.menu_up_arrow));
+
+		// create QuickAction. Use QuickAction.VERTICAL or
+		// QuickAction.HORIZONTAL param to define layout
+		// orientation
+		final QuickAction quickAction = new QuickAction(getActivity(),
+				QuickAction.HORIZONTAL);
+
+		// add action items into QuickAction
+		quickAction.addActionItem(editItem);
+		quickAction.addActionItem(eliminarItem);
+
+		// Set listener for action item clicked
+		quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+			@Override
+			public void onItemClick(QuickAction source, int pos,
+					int actionId) {
+				ActionItem actionItem = quickAction.getActionItem(pos);
+				BaseDatos cn = new BaseDatos(getActivity().getApplicationContext());
+				SQLiteDatabase db = cn.getWritableDatabase();
+				// here we can filter which action item was clicked with
+				// pos or actionId parameter
+				if (actionId == ID_EDIT) {
+					((Principal)getActivity()).setIDmodif(cn.IdNota(items.get(EliminarID).getEvaluable()));
+					getActivity().showDialog(2);
+					adap.notifyDataSetChanged();
+					//Toast.makeText(getActivity(), "Let's edit",Toast.LENGTH_SHORT).show();
+				} else if (actionId == ID_ELIMINAR) {
+					cn.EliminarNota(cn.IdNota(items.get(EliminarID).getEvaluable()));
+					items.remove(EliminarID);
+					adap.notifyDataSetChanged();
+
+					float txtsob = cn.SumaPorcentajes(cn.IdAsignatura(mText));
+					double txttot = cn.TotalProducto(cn.IdAsignatura(mText));
+					double txtmed = Math.round((txttot / (txtsob / 100)) * 100.0) / 100.0;
+
+					if (txtmed >= 5) {
+						txtsobre.setText(getString(R.string.Sobre) + " " + txtsob + " %");
+					} else {
+						txtsobre.setText(getString(R.string.Sobress) + " " + txtsob + " %");
+					}
+					txttotal.setText(getString(R.string.Total) + " " + txttot);
+					txtmedia.setText(getString(R.string.Media) + " " + txtmed);
+					txtnotaexfin.setText(getString(R.string.recuadroo));
+
+				}
+				cn.closeDB();
+				db.close();
+			}
+		});
 		TextView tvcrearnota = (TextView)footer.findViewById(R.id.tvanadir);
 		tvcrearnota.setTypeface(tf);
 		//Fin de la configuración de objetos
@@ -101,22 +165,8 @@ public class FragmentAsig extends Fragment{
         	@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				cn.EliminarNota(cn.IdNota(items.get(arg2).getEvaluable()));
-				items.remove(arg2);
-				adap.notifyDataSetChanged();
-				
-				float txtsob = cn.SumaPorcentajes(cn.IdAsignatura(mText));
-				double txttot = cn.TotalProducto(cn.IdAsignatura(mText));
-				double txtmed = Math.round((txttot/(txtsob/ 100))*100.0)/100.0;
-				
-				if(txtmed >= 5){
-				txtsobre.setText(getString(R.string.Sobre)+" "+txtsob+ " %");
-				}else{
-					txtsobre.setText(getString(R.string.Sobress)+" "+txtsob+ " %");
-					}
-				txttotal.setText(getString(R.string.Total)+ " "+txttot);
-				txtmedia.setText(getString(R.string.Media)+" "+ txtmed);
-				txtnotaexfin.setText(getString(R.string.recuadroo));
+        		EliminarID = arg2;
+				quickAction.show(arg1);
 				
 				return true;
 			}
@@ -240,7 +290,13 @@ public class FragmentAsig extends Fragment{
 	public String NombreAsig() {
 		return mText;
 	}
-	
+	public void setModifID(int id){
+		this.EliminarID= id;
+	}
+	public int getModifID(){
+		
+		return EliminarID;
+	}
 	public void addMark(){
 		this.getActivity().showDialog(1);	
 	}
@@ -249,4 +305,5 @@ public class FragmentAsig extends Fragment{
 		Intent in = new Intent(getActivity().getBaseContext(), Principal.class);
 		startActivity(in);
 	}
+	
 }

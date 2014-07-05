@@ -186,6 +186,32 @@ public class BaseDatos extends SQLiteOpenHelper {
     	 return columntotal;
     	 
      } 
+ 
+ //Funcion para seleciona notas a traves de nombre de asignatura
+ public ClaseNotas getNotaDataBase (int idnota) {
+	    //Selecionamos la id de asignatura, para sacar las notas q referencien a ese id
+	    SQLiteDatabase db = this.getReadableDatabase();
+	 
+	    String selectQuery = "SELECT * FROM " + TABLE_NOTAS + " WHERE "
+	            + KEY_IdNotas + " = '" + idnota+ "'";
+	 
+	    Cursor c = db.rawQuery(selectQuery, null);
+	    ClaseNotas Nota = new ClaseNotas();
+	    //int id = c.getInt(c.getColumnIndex(KEY_IdAsignatura));
+	    //Log.d("Log2",Integer.toString(id));
+	    if (c != null){
+	        c.moveToFirst();    
+	        //Asignamos parametros a las clase asignatura
+	   
+	        Nota.setId(c.getInt(c.getColumnIndex(KEY_IdNotas)));
+	        Nota.setEvaluable(c.getString(c.getColumnIndex(KEY_Evaluable)));
+	        Nota.setPorcentaje(c.getDouble(c.getColumnIndex(KEY_Porcentaje)));
+	        Nota.setNota(c.getDouble(c.getColumnIndex(KEY_Nota)));
+	        Nota.setIdasignatura(c.getInt(c.getColumnIndex(KEY_IdAsignaturaReferencia)));
+	    }
+	    
+	    return Nota;
+	}
      
      //Funcion para seleciona notas a traves de nombre de asignatura
      public ClaseAsignaturas getAsignaturaDataBase (String NombreAsignatura) {
@@ -373,6 +399,19 @@ public class BaseDatos extends SQLiteOpenHelper {
 	 	    y++;
 	    }
 	}
+     
+     public int updateNota(ClaseNotas nota) {
+    	    SQLiteDatabase db = this.getWritableDatabase();
+    	 
+    	    ContentValues values = new ContentValues();
+    	    values.put(KEY_Evaluable, nota.getEvaluable());
+    	    values.put(KEY_Nota, nota.getNota());
+    	    values.put(KEY_Porcentaje, nota.getPorcentaje());
+    	    values.put(KEY_IdAsignaturaReferencia, nota.getIdasignatura());
+    	 
+    	    // updating row
+    	    return db.update(TABLE_NOTAS, values, KEY_IdNotas + " = ?",new String[] { String.valueOf(nota.getId()) });
+    	}
     
     public void closeDB() {
         SQLiteDatabase db = this.getReadableDatabase();
