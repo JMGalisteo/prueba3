@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/princi"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E0EBF8"
+    tools:context=".Principal" >
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:src="@drawable/icono_cm"
+        android:background="@drawable/colorprincipal"
+        android:paddingLeft="3dp"
+        android:paddingRight="6dp"/>
+    
+<Spinner
+        android:id="@+id/cuatrimestre_spinner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/spinnerDropDownItemStyle"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/subject"
+        android:layout_toRightOf="@+id/imageView3"
+        android:clickable="true"
+        android:spinnerMode="dropdown"
+        android:gravity="center"
+        android:background="@drawable/colorprincipal"
+        android:popupBackground="#0074A1"
+        android:text="Carpeta"
+        android:layout_centerHorizontal="true"/>
+    
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/imageView3"
+        android:background="#E0EAF8" />
+    
+    <ImageView
+        android:id="@+id/subject"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/colorprincipal"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:clickable="true"
+        android:onClick="addSubject"
+        android:src="@drawable/subjectmas" />
+
+    <TextView
+        android:id="@+id/txtsinasignaturas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:textSize="25sp" 
+        android:gravity="center"/>
+        
+</RelativeLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/back"
+     android:background="@drawable/back_presentacion"
+    tools:context=".Presentacion" >
+
+		<ImageView
+		    android:id="@+id/lay_class"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:layout_centerHorizontal="true"
+		    android:layout_centerVertical="true"
+		    android:paddingBottom="70dp"
+		    android:paddingLeft="15dp"
+		    android:paddingRight="15dp"
+		    android:scaleType="centerInside"
+		    android:src="@drawable/classmarks" />
+		
+        <TextView
+        android:id="@+id/TVtfd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="40dp"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+         android:text="- TFD -" />
+
+</RelativeLayout>

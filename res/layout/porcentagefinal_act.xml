@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/layoutCalcularPorcen1">
+    
+ <TextView
+     android:id="@+id/textviewAsignatura"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_alignParentLeft="true"
+     android:layout_alignParentTop="true"
+     android:background="@drawable/dialogheadshape"
+     android:clickable="true"
+     android:gravity="center"
+      android:text="Asignatura"
+     android:textSize="40sp"
+     android:textColor="#FFFFFF"
+     android:textAppearance="?android:attr/textAppearanceLarge" />
+ 
+	 <LinearLayout
+	     android:id="@+id/layoutCalculaPorcen2"
+	     android:layout_width="match_parent"
+	     android:layout_height="wrap_content"
+	     android:layout_below="@id/textviewAsignatura"
+	     android:background="@drawable/dialogfootershape"
+	     android:orientation="vertical" >
+
+	     <TextView
+	         android:id="@+id/textviewCalcularPorcen"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginTop="20dp"
+	         android:text="Porcentage del examen final"
+	         android:textSize="22sp" />
+
+	     <EditText
+	         android:id="@+id/edittextPorcen"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:ems="5"
+	         android:layout_gravity="center_horizontal"
+	         android:maxLines="1"
+	         android:singleLine="true"
+	         android:layout_marginTop="20dp"
+	         android:inputType="textCapSentences"
+	         android:background="@drawable/edittext_shape"
+	         android:hint="%"/>
+	     
+	     <LinearLayout
+	     android:id="@+id/layoutCalcularPorcenButtons"
+	     android:layout_width="match_parent"
+	     android:layout_height="wrap_content"
+	     android:gravity="center"
+	     android:orientation="horizontal" >
+	     
+	     <Button
+	         android:id="@+id/buttonCalcularPorcen"
+	         android:layout_width="100dp"
+	         android:layout_height="wrap_content"
+	         android:layout_marginBottom="20dp"
+	         android:layout_marginRight="15dp"
+	         android:layout_marginTop="20dp"
+	         android:background="@drawable/button_shape"
+	         android:focusable="false"
+	         android:gravity="center_horizontal"
+	         android:text="Calcular"
+	         android:textColor="#FFFFFF"
+	         android:textSize="20sp" 
+	         android:padding="10dp"/>
+	     
+	     <Button
+	         android:id="@+id/buttonSalirPorcen"
+	         android:layout_width="100dp"
+	         android:layout_height="wrap_content"
+	         android:layout_marginBottom="20dp"
+	         android:layout_marginLeft="15dp"
+	         android:layout_marginTop="20dp"
+	         android:background="@drawable/button_shape"
+	         android:focusable="false"
+	         android:gravity="center_horizontal"
+	         android:textColor="#FFFFFF"
+	         android:padding="10dp"
+	         android:text="Cancelar"
+	         android:textSize="20sp" />
+	     
+		</LinearLayout>
+		
+	 </LinearLayout>
+	 
+</RelativeLayout>

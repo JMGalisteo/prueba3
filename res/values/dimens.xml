@@ -1,0 +1,10 @@
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="notas">30dp</dimen>
+    <dimen name="asignaturas">45dp</dimen>
+    <dimen name="cursos">50dp</dimen>
+
+</resources>

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+    
+    <LinearLayout 
+        android:id="@+id/android_layout1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" 
+        android:layout_margin="10dp"
+        android:background="@drawable/borde"
+        android:orientation="vertical">
+        
+        <TextView
+        	android:id="@+id/textViewAnd"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_gravity="center_horizontal|top"
+        	android:layout_marginTop="8dp"
+        	android:paddingTop="6dp"
+        	android:paddingBottom="6dp"
+        	android:textSize="32sp"
+       	 	android:text="ASIGNATURA"/>
+        
+        <ListView 
+            android:id="@+id/listView1"
+          	android:layout_width="match_parent"
+          	android:layout_height="wrap_content"
+          	android:layout_marginLeft="3dp"
+          	android:layout_marginRight="3dp"
+          	android:layout_marginTop="8dp"
+          	android:layout_marginBottom="2dp"
+          	android:requiresFadingEdge="vertical"
+          	android:scrollbarFadeDuration="1000"
+       		android:fadingEdgeLength="15dp"
+          	android:cacheColorHint="#FFFFFF">
+        </ListView>
+        
+        <RelativeLayout
+    	    android:id="@+id/resultados"
+    	    android:layout_width="match_parent"
+    	    android:layout_height="wrap_content"
+    	    android:clipChildren="true"
+    	    android:background="#2174BA"
+    	    android:paddingBottom="5dp">
+
+        <TextView
+            android:id="@+id/TVtotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignRight="@+id/linea1"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="3dp"
+            android:textColor="@color/white"
+            android:gravity="center_horizontal"
+            android:textSize="24sp"
+            android:text="TOTAL: 1.15" />
+        
+        <TextView
+            android:id="@+id/TVmedia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_above="@+id/linea2"
+            android:layout_alignParentRight="true"
+            android:layout_alignLeft="@+id/linea1"
+            android:textColor="@color/white"
+			android:gravity="center_horizontal"
+			android:textSize="24sp"
+            android:text="Media: 6.25" />
+        
+        <View
+            android:id="@+id/linea2"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_below="@id/TVtotal"
+            android:background="@color/white" />
+        
+        <TextView
+            android:id="@+id/TVsobre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_below="@id/linea2"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:textSize="22sp"
+            android:text="Aprobado sobre un 12.5%"/>
+        
+        <View
+            android:id="@+id/linea3"
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/TVsobre"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@color/white" />
+        
+         <TextView
+            android:id="@+id/TVnotaexfinal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginBottom="3dp"
+            android:layout_below="@id/linea3"
+            android:textColor="@color/white"
+            android:layout_centerHorizontal="true"
+            android:textSize="20sp"
+            android:text="Nota necesaria en el examen final: 9.2" />
+
+         <View
+             android:id="@+id/linea1"
+             android:layout_width="1dp"
+             android:layout_height="12dp"
+             android:layout_above="@+id/linea2"
+             android:layout_alignParentTop="true"
+             android:layout_centerHorizontal="true"
+             android:layout_marginTop="4dp"
+             android:layout_marginBottom="4dp"
+             android:background="@color/white" />
+        </RelativeLayout>
+        
+      </LinearLayout>
+      
+    </RelativeLayout>  

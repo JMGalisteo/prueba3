@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/layoutCrearAsig1">
+    
+ <TextView
+     android:id="@+id/textviewCarpeta"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:layout_alignParentLeft="true"
+     android:layout_alignParentTop="true"
+     android:background="@drawable/dialogheadshape"
+     android:clickable="true"
+     android:gravity="center"
+      android:text="Carpeta"
+     android:textSize="40sp"
+     android:textColor="#FFFFFF"
+     android:textAppearance="?android:attr/textAppearanceLarge" />
+ 
+	 <LinearLayout
+	     android:id="@+id/layoutCrearAsig2"
+	     android:layout_width="match_parent"
+	     android:layout_height="wrap_content"
+	     android:layout_below="@id/textviewCarpeta"
+	     android:background="@drawable/dialogfootershape"
+	     android:orientation="vertical" >
+
+	     <TextView
+	         android:id="@+id/textviewnuevaasig"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:layout_gravity="center_horizontal"
+	         android:layout_marginTop="20dp"
+	         android:text="Crear nueva asignatura"
+	         android:textSize="26sp" />
+
+	     <EditText
+	         android:id="@+id/edittextAsig"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:ems="10"
+	         android:layout_gravity="center_horizontal"
+	         android:maxLines="1"
+	         android:singleLine="true"
+	         android:layout_marginTop="20dp"
+	         android:inputType="textCapSentences"
+	         android:background="@drawable/edittext_shape"
+	         android:hint="Introducir nombre"/>
+	     
+	     <LinearLayout
+	     android:id="@+id/layoutCrearAsigButtons"
+	     android:layout_width="match_parent"
+	     android:layout_height="wrap_content"
+	     android:gravity="center"
+	     android:orientation="horizontal" >
+	     
+	     <Button
+	         android:id="@+id/buttonCrearAsig"
+	         android:layout_width="100dp"
+	         android:layout_height="wrap_content"
+	         android:layout_marginBottom="20dp"
+	         android:layout_marginRight="15dp"
+	         android:layout_marginTop="20dp"
+	         android:background="@drawable/button_shape"
+	         android:focusable="false"
+	         android:gravity="center_horizontal"
+	         android:text="Crear"
+	         android:textColor="#FFFFFF"
+	         android:textSize="20sp" 
+	         android:padding="10dp"/>
+	     
+	     <Button
+	         android:id="@+id/buttonSalirAsig"
+	         android:layout_width="100dp"
+	         android:layout_height="wrap_content"
+	         android:layout_marginBottom="20dp"
+	         android:layout_marginLeft="15dp"
+	         android:layout_marginTop="20dp"
+	         android:background="@drawable/button_shape"
+	         android:focusable="false"
+	         android:gravity="center_horizontal"
+	         android:textColor="#FFFFFF"
+	         android:padding="10dp"
+	         android:text="Cancelar"
+	         android:textSize="20sp" />
+	     
+		</LinearLayout>
+		
+	 </LinearLayout>
+	 
+</RelativeLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">ClassMarks</string>
+    <string name="Media">Moyenne: </string>
+    <string name="Total">Total: </string>
+    <string name="Sobre">Approuvé sur un   </string>
+     <string name="Sobress">N\'est pas réussir sur un </string>
+    <string name="recuadroo">Note nécessaire a l´examen finale:  </string>
+    <string name="addasig">Ajouter une matière</string>
+
+</resources>
