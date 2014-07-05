@@ -11,7 +11,7 @@
         android:layout_marginRight="10dp" 
         android:layout_margin="10dp"
         android:background="@drawable/borde">
-        
+         
         <TextView
         	android:id="@+id/textViewAnd"
         	android:layout_width="wrap_content"
