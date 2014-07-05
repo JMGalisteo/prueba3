@@ -3,21 +3,21 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent">
     
-    <LinearLayout 
+    <RelativeLayout
         android:id="@+id/android_layout1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp" 
         android:layout_margin="10dp"
-        android:background="@drawable/borde"
-        android:orientation="vertical">
+        android:background="@drawable/borde">
         
         <TextView
         	android:id="@+id/textViewAnd"
         	android:layout_width="wrap_content"
         	android:layout_height="wrap_content"
-        	android:layout_gravity="center_horizontal|top"
+        	android:layout_alignParentTop="true"
+        	android:layout_centerHorizontal="true"
         	android:layout_marginTop="8dp"
         	android:paddingTop="6dp"
         	android:paddingBottom="6dp"
@@ -26,6 +26,7 @@
         
         <ListView 
             android:id="@+id/listView1"
+            android:layout_below="@id/textViewAnd"
           	android:layout_width="match_parent"
           	android:layout_height="wrap_content"
           	android:layout_marginLeft="3dp"
@@ -40,10 +41,11 @@
         
         <RelativeLayout
     	    android:id="@+id/resultados"
+    	    android:layout_alignParentBottom="true"
     	    android:layout_width="match_parent"
     	    android:layout_height="wrap_content"
     	    android:clipChildren="true"
-    	    android:background="#2174BA"
+    	    android:background="@drawable/borde_inferior_resultados"
     	    android:paddingBottom="5dp">
 
         <TextView
@@ -131,6 +133,6 @@
              android:background="@color/white" />
         </RelativeLayout>
         
-      </LinearLayout>
+      </RelativeLayout>
       
     </RelativeLayout>  
