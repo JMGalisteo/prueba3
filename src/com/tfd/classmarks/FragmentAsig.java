@@ -80,8 +80,10 @@ public class FragmentAsig extends Fragment{
         txt.setOnLongClickListener(new View.OnLongClickListener() {
 			@Override
 			public boolean onLongClick(View v) {
-				cn.EliminarAsignatura(cn.IdAsignatura(mText));
-				deleteSubject();
+				((Principal)getActivity()).removeCurrentItem();
+				cn.EliminarAsignatura(cn.IdAsignatura(mText));				
+
+				//deleteSubject();
 				return true;
 			}
 		});
@@ -137,20 +139,27 @@ public class FragmentAsig extends Fragment{
 				} else if (actionId == ID_ELIMINAR) {
 					cn.EliminarNota(cn.IdNota(items.get(EliminarID).getEvaluable()));
 					items.remove(EliminarID);
-					adap.notifyDataSetChanged();
+					Log.d("mtext",mText);
 
 					float txtsob = cn.SumaPorcentajes(cn.IdAsignatura(mText));
-					double txttot = cn.TotalProducto(cn.IdAsignatura(mText));
-					double txtmed = Math.round((txttot / (txtsob / 100)) * 100.0) / 100.0;
+					Log.d("txtsob",""+txtsob);
 
-					if (txtmed >= 5) {
-						txtsobre.setText(getString(R.string.Sobre) + " " + txtsob + " %");
-					} else {
-						txtsobre.setText(getString(R.string.Sobress) + " " + txtsob + " %");
-					}
+					double txttot = cn.TotalProducto(cn.IdAsignatura(mText));
+					Log.d("txttot",""+txttot);
+
+					double txtmed = Math.round((txttot / (txtsob / 100)) * 100.0) / 100.0;
+					Log.d("txtmed",""+txtmed);
+
+					
+//					if (txtmed >= 5) {
+//						txtsobre.setText(getString(R.string.Sobre) + " " + txtsob + " %");
+//					} else {
+//						txtsobre.setText(getString(R.string.Sobress) + " " + txtsob + " %");
+//					}
 					txttotal.setText(getString(R.string.Total) + " " + txttot);
 					txtmedia.setText(getString(R.string.Media) + " " + txtmed);
-					txtnotaexfin.setText(getString(R.string.recuadroo));
+					txtnotaneeded.setText(getString(R.string.recuadroo));
+					adap.notifyDataSetChanged();
 
 				}
 				cn.closeDB();
@@ -173,17 +182,17 @@ public class FragmentAsig extends Fragment{
         		EliminarID = arg2;
 				quickAction.show(arg1);
 				
-				float txtsob = cn.SumaPorcentajes(cn.IdAsignatura(mText));
-				double txttot = cn.TotalProducto(cn.IdAsignatura(mText));
-				double txtmed = Math.round((txttot / (txtsob / 100)) * 100.0) / 100.0;
-				if(txtmed >= 5){
-				txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_verde, 0, 0, 0);
-				}else{
-					txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_rojo, 0, 0, 0);
-					}
-				txttotal.setText(getString(R.string.Total)+ " "+txttot);
-				txtmedia.setText(getString(R.string.Media)+" "+ txtmed);
-				
+//				float txtsob = cn.SumaPorcentajes(cn.IdAsignatura(mText));
+//				double txttot = cn.TotalProducto(cn.IdAsignatura(mText));
+//				double txtmed = Math.round((txttot / (txtsob / 100)) * 100.0) / 100.0;
+//				if(txtmed >= 5){
+//				txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_verde, 0, 0, 0);
+//				}else{
+//					txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_rojo, 0, 0, 0);
+//					}
+//				txttotal.setText(getString(R.string.Total)+ " "+txttot);
+//				txtmedia.setText(getString(R.string.Media)+" "+ txtmed);
+//				
 				return true;
 			}
 		});

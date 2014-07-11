@@ -200,7 +200,7 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 		db.close();
 	}
 
-	public class MyPagerAdapter extends FragmentPagerAdapter {
+	public class MyPagerAdapter extends FragmentStatePagerAdapter {
 
 		private FragmentProvider mProvider;
 
@@ -225,14 +225,15 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 		public int getCount() {
 			return mProvider.getCount();
 		}
-		
-	    public void removeCurrentItem(String name) {
-	        int position = mPager.getCurrentItem();
-	        frags.remove(position);
-	        mAdapter.notifyDataSetChanged();
-	    }
 	}
 
+    public void removeCurrentItem() {
+        int position = mPager.getCurrentItem();
+        frags.remove(position);
+        mAdapter.notifyDataSetChanged();
+    }
+	
+	
 	@Override
 	protected Dialog onCreateDialog(int id){
 		switch (id){
@@ -280,7 +281,7 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 						Asignatura.setIdcuatrimestre(cn.IdCuatrimestre(spinner.getSelectedItem().toString()));							
 						cn.InsertarAsignatura(Asignatura);
 						
-						frags.add(Asignatura.getId(),new FragmentAsig(asign));
+						frags.add(new FragmentAsig(asign));
 				        mAdapter.notifyDataSetChanged();
 
 						cn.closeDB();
