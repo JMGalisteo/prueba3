@@ -274,15 +274,16 @@ public final class R {
         public static final int icono_cm=0x7f020010;
         public static final int icono_cm_desktop=0x7f020011;
         public static final int indicador_rojo=0x7f020012;
-        public static final int indicador_verde=0x7f020013;
-        public static final int indicador_verde_x=0x7f020014;
-        public static final int menu_down_arrow=0x7f020015;
-        public static final int menu_up_arrow=0x7f020016;
-        public static final int popup=0x7f020017;
-        public static final int round=0x7f020018;
-        public static final int rounded=0x7f020019;
-        public static final int spinner_prompt=0x7f02001a;
-        public static final int subjectmas=0x7f02001b;
+        public static final int indicador_rojo_x=0x7f020013;
+        public static final int indicador_verde=0x7f020014;
+        public static final int indicador_verde_x=0x7f020015;
+        public static final int menu_down_arrow=0x7f020016;
+        public static final int menu_up_arrow=0x7f020017;
+        public static final int popup=0x7f020018;
+        public static final int round=0x7f020019;
+        public static final int rounded=0x7f02001a;
+        public static final int spinner_prompt=0x7f02001b;
+        public static final int subjectmas=0x7f02001c;
     }
     public static final class id {
         public static final int TVmedia=0x7f09000a;

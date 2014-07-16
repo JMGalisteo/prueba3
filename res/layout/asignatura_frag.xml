@@ -18,7 +18,7 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="17dp"
-            android:drawableLeft="@drawable/indicador_rojo"
+            android:drawableLeft="@drawable/indicador_rojo_x"
             android:drawablePadding="10dp"
             android:text="ASIGNATURA"
             android:textSize="28sp" />
@@ -103,6 +103,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="8dp"
+                android:translationX="0dp"
                 android:background="#FFFFFF" />
 
             <LinearLayout

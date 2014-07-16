@@ -12,7 +12,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -59,9 +63,21 @@ public class FragmentAsig extends Fragment{
 		// Configuración de objetos
 		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Light.ttf");
 		
+		//TextView nombre de la asignatura
 		final TextView txt = (TextView)fragment.findViewById(R.id.textViewAnd);
         txt.setText(mText);
         txt.setTypeface(tf);
+        
+        //Código para crear y escalar el indicardor verde
+        Drawable indic = getActivity().getResources().getDrawable(R.drawable.indicador_verde_x);   
+        Bitmap bm = ((BitmapDrawable)indic).getBitmap();
+        final Drawable indicator = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bm, 22, 22, true));
+
+      //Código para crear y escalar el indicardor rojo
+        Drawable indicR = getActivity().getResources().getDrawable(R.drawable.indicador_rojo_x);   
+        Bitmap bm1 = ((BitmapDrawable)indicR).getBitmap();
+        final Drawable indicatorR = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bm1, 22, 22, true));
+
         
         ImageView x = (ImageView)fragment.findViewById(R.id.imageViewEliminar);
         
@@ -83,16 +99,17 @@ public class FragmentAsig extends Fragment{
 		txttotal.setTypeface(tf);
 		txtmedia.setTypeface(tf);
 		txtnotaneeded.setTypeface(tf);
+		
+		/*
+		 * 
+		 *EMPIEZA EL CÓDIGO DEL BOCADILLO (SPEECH BUBBLE)
+		 * 
+		*/
+		
+		ActionItem editItem = new ActionItem(ID_EDIT, "Edit", getResources().getDrawable(R.drawable.menu_down_arrow));
+		ActionItem eliminarItem = new ActionItem(ID_ELIMINAR, "Eliminar", getResources().getDrawable(R.drawable.menu_up_arrow));
 
-		// BOCADILLO DE MODIFICAR
-		ActionItem editItem = new ActionItem(ID_EDIT, "Edit", getResources()
-				.getDrawable(R.drawable.menu_down_arrow));
-		ActionItem eliminarItem = new ActionItem(ID_ELIMINAR, "Eliminar",
-				getResources().getDrawable(R.drawable.menu_up_arrow));
-
-		// create QuickAction. Use QuickAction.VERTICAL or
-		// QuickAction.HORIZONTAL param to define layout
-		// orientation
+		// Crea un objeto QuickAction y determina que su orientación sea horizontal
 		final QuickAction quickAction = new QuickAction(getActivity(),
 				QuickAction.HORIZONTAL);
 
@@ -109,14 +126,15 @@ public class FragmentAsig extends Fragment{
 				
 				BaseDatos cn = new BaseDatos(getActivity().getApplicationContext());
 				SQLiteDatabase db = cn.getWritableDatabase();
-				// here we can filter which action item was clicked with
-				// pos or actionId parameter
+				
+				//Acción de editar del bubble
 				if (actionId == ID_EDIT) {
 					((Principal)getActivity()).setIDmodif(cn.IdNota(items.get(EliminarID).getEvaluable()));
 					getActivity().showDialog(2);
 					adap.notifyDataSetChanged();
-					//Toast.makeText(getActivity(), "Let's edit",Toast.LENGTH_SHORT).show();
-				} else if (actionId == ID_ELIMINAR) {
+				} 
+				//Acción de eliminar del bubble
+				else if (actionId == ID_ELIMINAR) {
 					cn.EliminarNota(cn.IdNota(items.get(EliminarID).getEvaluable()));
 					items.remove(EliminarID);
 					Log.d("mtext",mText);
@@ -131,9 +149,9 @@ public class FragmentAsig extends Fragment{
 					Log.d("txtmed",""+txtmed);
 
 					if(txtmed >= 5){
-						txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_verde, 0, 0, 0);
+						txt.setCompoundDrawablesWithIntrinsicBounds(indicator, null, null, null);
 					}else{
-						txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_rojo, 0, 0, 0);
+						txt.setCompoundDrawablesWithIntrinsicBounds(indicatorR, null, null, null);
 					}
 
 					txttotal.setText(getString(R.string.Total) + " " + txttot);
@@ -146,6 +164,13 @@ public class FragmentAsig extends Fragment{
 				db.close();
 			}
 		});
+		
+		/*
+		 * 
+		 *ACABA EL CÓDIGO DEL BOCADILLO (SPEECH BUBBLE)
+		 * 
+		*/
+		
 		TextView tvcrearnota = (TextView)footer.findViewById(R.id.tvanadir);
 		tvcrearnota.setTypeface(tf);
 		//Fin de la configuración de objetos
@@ -181,9 +206,9 @@ public class FragmentAsig extends Fragment{
 		double txtmed = Math.round((txttot/(txtsob/ 100))*100.0)/100.0;
 		
 		if(txtmed >= 5){
-			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_verde, 0, 0, 0);
+			txt.setCompoundDrawablesWithIntrinsicBounds(indicator, null, null, null);
 		}else{
-			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_rojo, 0, 0, 0);
+			txt.setCompoundDrawablesWithIntrinsicBounds(indicatorR, null, null, null);
 			}
 		txttotal.setText(getString(R.string.Total)+ " "+txttot);
 		txtmedia.setText(getString(R.string.Media)+" "+ txtmed);
