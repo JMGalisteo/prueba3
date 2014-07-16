@@ -123,7 +123,7 @@
 	     
 	     <Button
 	         android:id="@+id/buttonCrearNota"
-	         android:layout_width="101dp"
+	         android:layout_width="120dp"
 	         android:layout_height="wrap_content"
 	         android:layout_marginBottom="20dp"
 	         android:layout_marginRight="15dp"
@@ -138,7 +138,7 @@
 	     
 	     <Button
 	         android:id="@+id/buttonSalirNota"
-	         android:layout_width="wrap_content"
+	         android:layout_width="120dp"
 	         android:layout_height="wrap_content"
 	         android:layout_marginBottom="20dp"
 	         android:layout_marginLeft="15dp"

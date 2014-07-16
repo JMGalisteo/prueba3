@@ -234,7 +234,6 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 			View newAsig = inflater.inflate(R.layout.nuevaasignatura_act, null);
 			
 			Typeface tf = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
-			Typeface tft = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Light.ttf");
 			
 			TextView txt1 = (TextView)newAsig.findViewById(R.id.textviewCarpeta);
 			txt1.setTypeface(tf);  
@@ -246,10 +245,10 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 			edtxt.setTypeface(tf);
 			
 			Button btn = (Button)newAsig.findViewById(R.id.buttonCrearAsig);
-			btn.setTypeface(tft);
+			btn.setTypeface(tf);
 			
 			Button btn1 = (Button)newAsig.findViewById(R.id.buttonSalirAsig);
-			btn1.setTypeface(tft);
+			btn1.setTypeface(tf);
 			
 			btn.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -310,7 +309,6 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 			ClaseCuatrimestres cuatri = cn.getCuatrimestreDataBase(spinner.getSelectedItem().toString());
 			
 			Typeface tf1 = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
-			Typeface tft1 = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Light.ttf");
 			TextView txt3 = (TextView)newNota.findViewById(R.id.textviewAsignatura);
 			String nom = cuatri.getAsignatura(mPager.getCurrentItem()).getNombre();
 			
@@ -341,10 +339,10 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 			edtxtnota.setLines(1);
 
 			Button btn2 = (Button)newNota.findViewById(R.id.buttonCrearNota);
-			btn2.setTypeface(tft1);
+			btn2.setTypeface(tf1);
 			
 			Button btn3 = (Button)newNota.findViewById(R.id.buttonSalirNota);
-			btn3.setTypeface(tft1);
+			btn3.setTypeface(tf1);
 			
 			cn.closeDB();
 			db.close();
@@ -427,7 +425,6 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 			ClaseNotas notamodif =cn1.getNotaDataBase(IDmodif);
 			
 			Typeface tf11 = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
-			Typeface tft11 = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Light.ttf");
 			TextView txt31 = (TextView)modifNota.findViewById(R.id.textviewAsignatura);
 			String nom1 = cuatri1.getAsignatura(mPager.getCurrentItem()).getNombre();
 			
@@ -470,10 +467,10 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 
 
 			Button btn21 = (Button)modifNota.findViewById(R.id.buttonModificarNota);
-			btn21.setTypeface(tft11);
+			btn21.setTypeface(tf11);
 			
 			Button btn31 = (Button)modifNota.findViewById(R.id.buttonSalirNota);
-			btn31.setTypeface(tft11);
+			btn31.setTypeface(tf11);
 			
 			cn1.closeDB();
 			db1.close();
