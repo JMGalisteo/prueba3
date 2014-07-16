@@ -8,10 +8,8 @@ import mysql.ClaseAsignaturas;
 import mysql.ClaseClassMarks;
 import mysql.ClaseCuatrimestres;
 import mysql.ClaseNotas;
-import android.app.Activity;
-import android.app.AlertDialog;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,28 +20,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.AutoCompleteTextView.Validator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -557,6 +548,7 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 
 	}
 	
+	@SuppressLint("CutPasteId")
 	@Override
 	protected void onPrepareDialog(int id, Dialog dialog) {
 		BaseDatos cn = new BaseDatos(getApplicationContext());

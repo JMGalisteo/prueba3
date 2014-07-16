@@ -8,30 +8,22 @@ import com.tfd.classmarks.Principal;
 
 import mysql.BaseDatos;
 import mysql.ClaseAsignaturas;
-import mysql.ClaseNotas;
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.Button;
-import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 @SuppressLint("ValidFragment")
 public class FragmentAsig extends Fragment{
@@ -43,7 +35,7 @@ public class FragmentAsig extends Fragment{
 	public TextView txtnotaexfin, txttotal, txtmedia, txtsobre, txtañadir;
 	public ListView lv;
 	public Principal prin;
-	//holaaaa
+
 	@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final ArrayList<Item> items = new ArrayList<Item>();
@@ -58,7 +50,6 @@ public class FragmentAsig extends Fragment{
 				addMark();
 			}
 		});
-		
 
 		final BaseDatos cn = new BaseDatos(this.getActivity());
 		SQLiteDatabase db = cn.getReadableDatabase();
@@ -67,43 +58,31 @@ public class FragmentAsig extends Fragment{
 
 		// Configuración de objetos
 		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Light.ttf");
-
-		//TextView txt = (TextView) fragment.findViewById(R.id.textViewAnd);
-	//	txt.setText(mText);
-//		txt.setTypeface(tf);
-
 		
 		final TextView txt = (TextView)fragment.findViewById(R.id.textViewAnd);
         txt.setText(mText);
         txt.setTypeface(tf);
         
-        txt.setOnLongClickListener(new View.OnLongClickListener() {
+        ImageView x = (ImageView)fragment.findViewById(R.id.imageViewEliminar);
+        
+        x.setOnClickListener(new View.OnClickListener() {
+        	
 			@Override
-			public boolean onLongClick(View v) {
+			public void onClick(View v) {
 				((Principal)getActivity()).removeCurrentItem();
 				cn.EliminarAsignatura(cn.IdAsignatura(mText));				
 
-				//deleteSubject();
-				return true;
+				cn.closeDB();
 			}
 		});
 		
         final TextView txttotal = (TextView)fragment.findViewById(R.id.TVtotal);
 		final TextView txtmedia = (TextView)fragment.findViewById(R.id.TVmedia);
 		final TextView txtnotaneeded = (TextView)fragment.findViewById(R.id.TVnotaneeded);
-//		final TextView txtnotaexfin = (TextView)fragment.findViewById(R.id.TVnotaexfinal);
-//		final TextView txtsobre = (TextView)fragment.findViewById(R.id.TVsobre);
-//		
+
 		txttotal.setTypeface(tf);
 		txtmedia.setTypeface(tf);
 		txtnotaneeded.setTypeface(tf);
-
-//		txtnotaexfin.setOnClickListener(new View.OnClickListener() {	
-//			@Override
-//			public void onClick(View v) {
-//				calcularNotaFinal();
-//				}
-//		});
 
 		// BOCADILLO DE MODIFICAR
 		ActionItem editItem = new ActionItem(ID_EDIT, "Edit", getResources()
@@ -126,7 +105,8 @@ public class FragmentAsig extends Fragment{
 			@Override
 			public void onItemClick(QuickAction source, int pos,
 					int actionId) {
-				ActionItem actionItem = quickAction.getActionItem(pos);
+				//ActionItem actionItem = quickAction.getActionItem(pos);
+				
 				BaseDatos cn = new BaseDatos(getActivity().getApplicationContext());
 				SQLiteDatabase db = cn.getWritableDatabase();
 				// here we can filter which action item was clicked with
@@ -150,12 +130,12 @@ public class FragmentAsig extends Fragment{
 					double txtmed = Math.round((txttot / (txtsob / 100)) * 100.0) / 100.0;
 					Log.d("txtmed",""+txtmed);
 
-					
-//					if (txtmed >= 5) {
-//						txtsobre.setText(getString(R.string.Sobre) + " " + txtsob + " %");
-//					} else {
-//						txtsobre.setText(getString(R.string.Sobress) + " " + txtsob + " %");
-//					}
+					if(txtmed >= 5){
+						txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_verde, 0, 0, 0);
+					}else{
+						txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_rojo, 0, 0, 0);
+					}
+
 					txttotal.setText(getString(R.string.Total) + " " + txttot);
 					txtmedia.setText(getString(R.string.Media) + " " + txtmed);
 					txtnotaneeded.setText(getString(R.string.recuadroo));
@@ -181,18 +161,6 @@ public class FragmentAsig extends Fragment{
 					int arg2, long arg3) {
         		EliminarID = arg2;
 				quickAction.show(arg1);
-				
-//				float txtsob = cn.SumaPorcentajes(cn.IdAsignatura(mText));
-//				double txttot = cn.TotalProducto(cn.IdAsignatura(mText));
-//				double txtmed = Math.round((txttot / (txtsob / 100)) * 100.0) / 100.0;
-//				if(txtmed >= 5){
-//				txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_verde, 0, 0, 0);
-//				}else{
-//					txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_rojo, 0, 0, 0);
-//					}
-//				txttotal.setText(getString(R.string.Total)+ " "+txttot);
-//				txtmedia.setText(getString(R.string.Media)+" "+ txtmed);
-//				
 				return true;
 			}
 		});
@@ -227,77 +195,6 @@ public class FragmentAsig extends Fragment{
         return fragment;
 	}
 	
-	protected void calcularNotaFinal() {
-		//calc = (5-total)/% examen final
-		//Crear asignatura
-		
-		LayoutInflater inflater=(LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View newAsig = inflater.inflate(R.layout.porcentagefinal_act, null);
-		
-		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Light.ttf");
-		Typeface tft = Typeface.createFromAsset(getActivity().getAssets(), "RobotoCondensed-Light.ttf");
-		
-		TextView txt1 = (TextView)newAsig.findViewById(R.id.textviewAsignatura);
-		txt1.setTypeface(tf);  
-
-		TextView txt = (TextView)newAsig.findViewById(R.id.textviewCalcularPorcen);
-		txt.setTypeface(tf);
-
-		final EditText edtxt = (EditText)newAsig.findViewById(R.id.edittextPorcen);
-		edtxt.setTypeface(tf);
-		
-		Button btn = (Button)newAsig.findViewById(R.id.buttonCalcularPorcen);
-		btn.setTypeface(tft);
-		
-		Button btn1 = (Button)newAsig.findViewById(R.id.buttonSalirPorcen);
-		btn1.setTypeface(tft);
-		
-		btn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				
-				//verificar si la casilla rellenar  nota esta vacia para mostrar mensaje
-				if (edtxt.getText().length()==0)
-				{
-					Toast.makeText(getActivity().getApplicationContext(),"Campo sin rellenar",Toast.LENGTH_SHORT).show();
-					
-				}
-				else{
-					BaseDatos cn = new BaseDatos(getActivity().getApplicationContext());
-					SQLiteDatabase db = cn.getWritableDatabase();
-					Double porcen = Double.parseDouble(edtxt.getText().toString());
-					
-					ClaseAsignaturas Asignatura = new ClaseAsignaturas();
-					Asignatura.setNotaFinal(porcen);
-					
-					//txt1.setText(text);
-
-					cn.closeDB();
-					db.close();
-
-					edtxt.setText("");
-				}
-			}
-		});
-		
-		
-		final Dialog dialog = new Dialog(getActivity());
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-	    dialog.setContentView(newAsig);
-	    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-	    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-	    
-	    btn1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-			}
-		});
-	    
-		//double calc = (5 - )/ );
-		//Toast.makeText(getActivity(), "Debes sacar un "+calc +"X en el examen final para aprobar", Toast.LENGTH_LONG).show();
-	}
-
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);

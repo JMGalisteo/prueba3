@@ -10,7 +10,7 @@ import android.util.Log;
 public class BaseDatos extends SQLiteOpenHelper {
 
 	// Logcat tag
-    private static final String LOG = BaseDatos.class.getName();
+    //private static final String LOG = BaseDatos.class.getName();
  
     // Database Version
     private static final int DATABASE_VERSION = 1;

@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/edittextNombre"
                 android:layout_gravity="left"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:textSize="22sp"
                 android:text="Nombre" />
 
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/edittextPorcentaje"
                 android:layout_gravity="left"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:textSize="22sp"
                 android:text="Porcentaje" />
 
@@ -80,7 +80,7 @@
                 android:layout_marginRight="10dp"
                 android:ems="5"
                 android:maxLines="1"
-                android:numeric="decimal" 
+                android:inputType="numberDecimal" 
                 android:background="@drawable/edittext_shape"
 	           	android:hint="%"/>
         </RelativeLayout>
@@ -97,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@+id/edittextNota"
                 android:layout_gravity="left"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
                 android:textSize="22sp"
                 android:text="Nota" />
 
@@ -109,7 +109,7 @@
                 android:layout_marginRight="10dp"
                 android:ems="5"
                 android:maxLines="1"
-                android:numeric="decimal" 
+                android:inputType="numberDecimal"
                 android:background="@drawable/edittext_shape">
             </EditText>
         </RelativeLayout>
@@ -131,14 +131,14 @@
 	         android:background="@drawable/button_shape"
 	         android:focusable="false"
 	         android:gravity="center_horizontal"
-	         android:textColor="#FFFFFF"
+	         android:padding="8dp"
 	         android:text="Crear"
-	         android:textSize="20sp" 
-	         android:padding="10dp"/>
+	         android:textColor="#FFFFFF"
+	         android:textSize="25sp" />
 	     
 	     <Button
 	         android:id="@+id/buttonSalirNota"
-	         android:layout_width="101dp"
+	         android:layout_width="wrap_content"
 	         android:layout_height="wrap_content"
 	         android:layout_marginBottom="20dp"
 	         android:layout_marginLeft="15dp"
@@ -146,10 +146,10 @@
 	         android:background="@drawable/button_shape"
 	         android:focusable="false"
 	         android:gravity="center_horizontal"
-	         android:textColor="#FFFFFF"
-	         android:padding="10dp"
+	         android:padding="8dp"
 	         android:text="Cancelar"
-	         android:textSize="20sp" />
+	         android:textColor="#FFFFFF"
+	         android:textSize="25sp" />
 	     
 		</LinearLayout>
     </LinearLayout>
