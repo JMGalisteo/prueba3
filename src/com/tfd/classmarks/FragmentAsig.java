@@ -1,6 +1,7 @@
 package com.tfd.classmarks;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.tfd.classmarks.QuickAction;
 import com.tfd.classmarks.ActionItem;
@@ -23,6 +24,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -35,6 +37,7 @@ import android.widget.Toast;
 
 @SuppressLint("ValidFragment")
 public class FragmentAsig extends Fragment{
+	
 	private int EliminarID;
 	public int ModifID;
 	private static final int ID_EDIT     = 1;
@@ -150,7 +153,8 @@ public class FragmentAsig extends Fragment{
 					double txtmed = Math.round((txttot / (txtsob / 100)) * 100.0) / 100.0;
 					Log.d("txtmed",""+txtmed);
 
-					
+					double txtporrest = (100-txtsob);
+					double notanece = Math.round(((5-txttot)/(txtporrest/100)) * 100.0) / 100.0;
 //					if (txtmed >= 5) {
 //						txtsobre.setText(getString(R.string.Sobre) + " " + txtsob + " %");
 //					} else {
@@ -158,7 +162,7 @@ public class FragmentAsig extends Fragment{
 //					}
 					txttotal.setText(getString(R.string.Total) + " " + txttot);
 					txtmedia.setText(getString(R.string.Media) + " " + txtmed);
-					txtnotaneeded.setText(getString(R.string.recuadroo));
+					txtnotaneeded.setText(getString(R.string.recuadroo)+ " " + notanece + " ("+txtporrest+")");
 					adap.notifyDataSetChanged();
 
 				}
@@ -211,7 +215,9 @@ public class FragmentAsig extends Fragment{
 		float txtsob = cn.SumaPorcentajes(cn.IdAsignatura(mText));
 		double txttot = cn.TotalProducto(cn.IdAsignatura(mText));
 		double txtmed = Math.round((txttot/(txtsob/ 100))*100.0)/100.0;
-		
+
+		double txtporrest = (100-txtsob);
+		double notanece = Math.round(((5-txttot)/(txtporrest/100)) * 100.0) / 100.0;
 		if(txtmed >= 5){
 			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_verde, 0, 0, 0);
 		}else{
@@ -219,14 +225,15 @@ public class FragmentAsig extends Fragment{
 			}
 		txttotal.setText(getString(R.string.Total)+ " "+txttot);
 		txtmedia.setText(getString(R.string.Media)+" "+ txtmed);
-		
+		txtnotaneeded.setText(getString(R.string.recuadroo)+ " " + notanece + " ("+txtporrest+"%)");
+
 		cn.closeDB();
 		db.close();
 
 		Log.d("FRAGMENT","Cargado: "+mText);
         return fragment;
 	}
-	
+
 	protected void calcularNotaFinal() {
 		//calc = (5-total)/% examen final
 		//Crear asignatura
@@ -329,5 +336,8 @@ public class FragmentAsig extends Fragment{
 		Intent in = new Intent(getActivity().getBaseContext(), Principal.class);
 		startActivity(in);
 	}
+	
+	
+	
 	
 }

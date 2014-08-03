@@ -88,7 +88,7 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 
 	}
 	
-	private void isEmpty() {
+	public void isEmpty() {
 		//Método que determina si hay, o no, asignaturas creadas
 		BaseDatos cn = new BaseDatos(getApplicationContext());
 		SQLiteDatabase db = cn.getReadableDatabase();
