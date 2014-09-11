@@ -8,10 +8,8 @@ import mysql.ClaseAsignaturas;
 import mysql.ClaseClassMarks;
 import mysql.ClaseCuatrimestres;
 import mysql.ClaseNotas;
-import android.app.Activity;
-import android.app.AlertDialog;
+import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,28 +20,21 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.AutoCompleteTextView.Validator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -243,7 +234,6 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 			View newAsig = inflater.inflate(R.layout.nuevaasignatura_act, null);
 			
 			Typeface tf = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
-			Typeface tft = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Light.ttf");
 			
 			TextView txt1 = (TextView)newAsig.findViewById(R.id.textviewCarpeta);
 			txt1.setTypeface(tf);  
@@ -255,10 +245,10 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 			edtxt.setTypeface(tf);
 			
 			Button btn = (Button)newAsig.findViewById(R.id.buttonCrearAsig);
-			btn.setTypeface(tft);
+			btn.setTypeface(tf);
 			
 			Button btn1 = (Button)newAsig.findViewById(R.id.buttonSalirAsig);
-			btn1.setTypeface(tft);
+			btn1.setTypeface(tf);
 			
 			btn.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -319,7 +309,6 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 			ClaseCuatrimestres cuatri = cn.getCuatrimestreDataBase(spinner.getSelectedItem().toString());
 			
 			Typeface tf1 = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
-			Typeface tft1 = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Light.ttf");
 			TextView txt3 = (TextView)newNota.findViewById(R.id.textviewAsignatura);
 			String nom = cuatri.getAsignatura(mPager.getCurrentItem()).getNombre();
 			
@@ -350,10 +339,10 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 			edtxtnota.setLines(1);
 
 			Button btn2 = (Button)newNota.findViewById(R.id.buttonCrearNota);
-			btn2.setTypeface(tft1);
+			btn2.setTypeface(tf1);
 			
 			Button btn3 = (Button)newNota.findViewById(R.id.buttonSalirNota);
-			btn3.setTypeface(tft1);
+			btn3.setTypeface(tf1);
 			
 			cn.closeDB();
 			db.close();
@@ -436,7 +425,6 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 			ClaseNotas notamodif =cn1.getNotaDataBase(IDmodif);
 			
 			Typeface tf11 = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
-			Typeface tft11 = Typeface.createFromAsset(getAssets(), "RobotoCondensed-Light.ttf");
 			TextView txt31 = (TextView)modifNota.findViewById(R.id.textviewAsignatura);
 			String nom1 = cuatri1.getAsignatura(mPager.getCurrentItem()).getNombre();
 			
@@ -479,10 +467,10 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 
 
 			Button btn21 = (Button)modifNota.findViewById(R.id.buttonModificarNota);
-			btn21.setTypeface(tft11);
+			btn21.setTypeface(tf11);
 			
 			Button btn31 = (Button)modifNota.findViewById(R.id.buttonSalirNota);
-			btn31.setTypeface(tft11);
+			btn31.setTypeface(tf11);
 			
 			cn1.closeDB();
 			db1.close();
@@ -557,6 +545,7 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 
 	}
 	
+	@SuppressLint("CutPasteId")
 	@Override
 	protected void onPrepareDialog(int id, Dialog dialog) {
 		BaseDatos cn = new BaseDatos(getApplicationContext());

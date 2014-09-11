@@ -13,7 +13,6 @@
 		    android:layout_height="wrap_content"
 		    android:layout_centerHorizontal="true"
 		    android:layout_centerVertical="true"
-		    android:paddingBottom="70dp"
 		    android:paddingLeft="15dp"
 		    android:paddingRight="15dp"
 		    android:scaleType="centerInside"
@@ -23,9 +22,9 @@
         android:id="@+id/TVtfd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="40dp"
-        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-         android:text="- TFD -" />
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="20dp"
+        android:text="TFD" />
 
 </RelativeLayout>

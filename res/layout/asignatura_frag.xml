@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#E0EAF8" >
 
     <RelativeLayout
         android:id="@+id/android_layout1"
@@ -17,10 +18,10 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="17dp"
-            android:drawableLeft="@drawable/indicador_rojo"
+            android:drawableLeft="@drawable/indicador_rojo_x"
             android:drawablePadding="10dp"
             android:text="ASIGNATURA"
-            android:textSize="32sp" />
+            android:textSize="28sp" />
 
         <ImageView
             android:id="@+id/imageViewEliminar"
@@ -30,7 +31,7 @@
             android:layout_alignParentTop="true"
             android:layout_margin="10dp"
             android:scaleType="centerInside"
-            android:src="@drawable/cruz_eliminar" />
+            android:src="@drawable/cruz_eliminar_clickeffect" />
 
         <ListView
             android:id="@+id/listView1"
@@ -54,16 +55,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:gravity="center"
             android:background="@drawable/borde_inferior_resultados"
+            android:gravity="center_vertical"
             android:orientation="horizontal" >
 
             <LinearLayout
                 android:id="@+id/resultados1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
                 android:orientation="vertical" >
 
                 <TextView
@@ -71,19 +73,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="3dp"
-                    android:layout_marginLeft="3dp"
                     android:layout_marginTop="3dp"
-                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
                     android:text="TOTAL: 1.15"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
 
                 <View
                     android:id="@+id/lineaHoriz"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
                     android:background="#FFFFFF" />
 
                 <TextView
@@ -91,31 +90,29 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="3dp"
-                    android:layout_marginLeft="3dp"
                     android:layout_marginTop="3dp"
-                    android:gravity="center"
+                    android:layout_gravity="center_horizontal"
                     android:text="Media: 6.25"
                     android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    android:textSize="24sp" />
             </LinearLayout>
 
             <View
                 android:id="@+id/lineaVerti"
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginBottom="4dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginTop="8dp"
+                android:translationX="0dp"
                 android:background="#FFFFFF" />
 
             <LinearLayout
                 android:id="@+id/resultados2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
                 android:orientation="vertical" >
 
                 <TextView
@@ -129,6 +126,7 @@
                     android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
+
     </RelativeLayout>
 
 </RelativeLayout>

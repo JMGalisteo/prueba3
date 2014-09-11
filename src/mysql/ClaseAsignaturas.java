@@ -1,7 +1,5 @@
 package mysql;
 
-import android.database.sqlite.SQLiteDatabase;
-
 public class ClaseAsignaturas {
 	
 	int id;

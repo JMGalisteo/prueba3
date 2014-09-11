@@ -9,15 +9,17 @@ import com.tfd.classmarks.Principal;
 
 import mysql.BaseDatos;
 import mysql.ClaseAsignaturas;
-import mysql.ClaseNotas;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -31,6 +33,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,7 +64,6 @@ public class FragmentAsig extends Fragment{
 				addMark();
 			}
 		});
-		
 
 		final BaseDatos cn = new BaseDatos(this.getActivity());
 		SQLiteDatabase db = cn.getReadableDatabase();
@@ -76,18 +78,32 @@ public class FragmentAsig extends Fragment{
 //		txt.setTypeface(tf);
 
 		
+		//TextView nombre de la asignatura
 		final TextView txt = (TextView)fragment.findViewById(R.id.textViewAnd);
         txt.setText(mText);
         txt.setTypeface(tf);
         
-        txt.setOnLongClickListener(new View.OnLongClickListener() {
+        //Código para crear y escalar el indicardor verde
+        Drawable indic = getActivity().getResources().getDrawable(R.drawable.indicador_verde_x);   
+        Bitmap bm = ((BitmapDrawable)indic).getBitmap();
+        final Drawable indicator = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bm, 22, 22, true));
+
+      //Código para crear y escalar el indicardor rojo
+        Drawable indicR = getActivity().getResources().getDrawable(R.drawable.indicador_rojo_x);   
+        Bitmap bm1 = ((BitmapDrawable)indicR).getBitmap();
+        final Drawable indicatorR = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bm1, 22, 22, true));
+
+        
+        ImageView x = (ImageView)fragment.findViewById(R.id.imageViewEliminar);
+        
+        x.setOnClickListener(new View.OnClickListener() {
+        	
 			@Override
-			public boolean onLongClick(View v) {
+			public void onClick(View v) {
 				((Principal)getActivity()).removeCurrentItem();
 				cn.EliminarAsignatura(cn.IdAsignatura(mText));				
 
-				//deleteSubject();
-				return true;
+				cn.closeDB();
 			}
 		});
 		
@@ -100,23 +116,17 @@ public class FragmentAsig extends Fragment{
 		txttotal.setTypeface(tf);
 		txtmedia.setTypeface(tf);
 		txtnotaneeded.setTypeface(tf);
+		
+		/*
+		 * 
+		 *EMPIEZA EL CÓDIGO DEL BOCADILLO (SPEECH BUBBLE)
+		 * 
+		*/
+		
+		ActionItem editItem = new ActionItem(ID_EDIT, "Edit", getResources().getDrawable(R.drawable.menu_down_arrow));
+		ActionItem eliminarItem = new ActionItem(ID_ELIMINAR, "Eliminar", getResources().getDrawable(R.drawable.menu_up_arrow));
 
-//		txtnotaexfin.setOnClickListener(new View.OnClickListener() {	
-//			@Override
-//			public void onClick(View v) {
-//				calcularNotaFinal();
-//				}
-//		});
-
-		// BOCADILLO DE MODIFICAR
-		ActionItem editItem = new ActionItem(ID_EDIT, "Edit", getResources()
-				.getDrawable(R.drawable.menu_down_arrow));
-		ActionItem eliminarItem = new ActionItem(ID_ELIMINAR, "Eliminar",
-				getResources().getDrawable(R.drawable.menu_up_arrow));
-
-		// create QuickAction. Use QuickAction.VERTICAL or
-		// QuickAction.HORIZONTAL param to define layout
-		// orientation
+		// Crea un objeto QuickAction y determina que su orientación sea horizontal
 		final QuickAction quickAction = new QuickAction(getActivity(),
 				QuickAction.HORIZONTAL);
 
@@ -160,6 +170,18 @@ public class FragmentAsig extends Fragment{
 //					} else {
 //						txtsobre.setText(getString(R.string.Sobress) + " " + txtsob + " %");
 //					}
+					if(txtmed >= 5){
+						txt.setCompoundDrawablesWithIntrinsicBounds(indicator, null, null, null);
+					}else{
+						txt.setCompoundDrawablesWithIntrinsicBounds(indicatorR, null, null, null);
+					}
+/*					double txtporrest = (100-txtsob);
+					double notanece = Math.round(((5-txttot)/(txtporrest/100)) * 100.0) / 100.0;
+//					if (txtmed >= 5) {
+//						txtsobre.setText(getString(R.string.Sobre) + " " + txtsob + " %");
+//					} else {
+//						txtsobre.setText(getString(R.string.Sobress) + " " + txtsob + " %");
+//					}*/
 					txttotal.setText(getString(R.string.Total) + " " + txttot);
 					txtmedia.setText(getString(R.string.Media) + " " + txtmed);
 					txtnotaneeded.setText(getString(R.string.recuadroo)+ " " + notanece + " ("+txtporrest+")");
@@ -219,9 +241,9 @@ public class FragmentAsig extends Fragment{
 		double txtporrest = (100-txtsob);
 		double notanece = Math.round(((5-txttot)/(txtporrest/100)) * 100.0) / 100.0;
 		if(txtmed >= 5){
-			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_verde, 0, 0, 0);
+			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_verde_x, 0, 0, 0);
 		}else{
-			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_rojo, 0, 0, 0);
+			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_rojo_x, 0, 0, 0);
 			}
 		txttotal.setText(getString(R.string.Total)+ " "+txttot);
 		txtmedia.setText(getString(R.string.Media)+" "+ txtmed);
@@ -229,81 +251,80 @@ public class FragmentAsig extends Fragment{
 
 		cn.closeDB();
 		db.close();
-
 		Log.d("FRAGMENT","Cargado: "+mText);
         return fragment;
 	}
 
-	protected void calcularNotaFinal() {
-		//calc = (5-total)/% examen final
-		//Crear asignatura
-		
-		LayoutInflater inflater=(LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		View newAsig = inflater.inflate(R.layout.porcentagefinal_act, null);
-		
-		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Light.ttf");
-		Typeface tft = Typeface.createFromAsset(getActivity().getAssets(), "RobotoCondensed-Light.ttf");
-		
-		TextView txt1 = (TextView)newAsig.findViewById(R.id.textviewAsignatura);
-		txt1.setTypeface(tf);  
-
-		TextView txt = (TextView)newAsig.findViewById(R.id.textviewCalcularPorcen);
-		txt.setTypeface(tf);
-
-		final EditText edtxt = (EditText)newAsig.findViewById(R.id.edittextPorcen);
-		edtxt.setTypeface(tf);
-		
-		Button btn = (Button)newAsig.findViewById(R.id.buttonCalcularPorcen);
-		btn.setTypeface(tft);
-		
-		Button btn1 = (Button)newAsig.findViewById(R.id.buttonSalirPorcen);
-		btn1.setTypeface(tft);
-		
-		btn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				
-				//verificar si la casilla rellenar  nota esta vacia para mostrar mensaje
-				if (edtxt.getText().length()==0)
-				{
-					Toast.makeText(getActivity().getApplicationContext(),"Campo sin rellenar",Toast.LENGTH_SHORT).show();
-					
-				}
-				else{
-					BaseDatos cn = new BaseDatos(getActivity().getApplicationContext());
-					SQLiteDatabase db = cn.getWritableDatabase();
-					Double porcen = Double.parseDouble(edtxt.getText().toString());
-					
-					ClaseAsignaturas Asignatura = new ClaseAsignaturas();
-					Asignatura.setNotaFinal(porcen);
-					
-					//txt1.setText(text);
-
-					cn.closeDB();
-					db.close();
-
-					edtxt.setText("");
-				}
-			}
-		});
-		
-		
-		final Dialog dialog = new Dialog(getActivity());
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-	    dialog.setContentView(newAsig);
-	    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-	    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-	    
-	    btn1.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				dialog.dismiss();
-			}
-		});
-	    
-		//double calc = (5 - )/ );
-		//Toast.makeText(getActivity(), "Debes sacar un "+calc +"X en el examen final para aprobar", Toast.LENGTH_LONG).show();
-	}
+//	protected void calcularNotaFinal() {
+//		//calc = (5-total)/% examen final
+//		//Crear asignatura
+//		
+//		LayoutInflater inflater=(LayoutInflater)getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//		//View newAsig = inflater.inflate(R.layout.porcentagefinal_act, null);
+//		
+//		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(), "Roboto-Light.ttf");
+//		Typeface tft = Typeface.createFromAsset(getActivity().getAssets(), "RobotoCondensed-Light.ttf");
+//		
+//		TextView txt1 = (TextView)newAsig.findViewById(R.id.textviewAsignatura);
+//		txt1.setTypeface(tf);  
+//
+//		TextView txt = (TextView)newAsig.findViewById(R.id.textviewCalcularPorcen);
+//		txt.setTypeface(tf);
+//
+//		final EditText edtxt = (EditText)newAsig.findViewById(R.id.edittextPorcen);
+//		edtxt.setTypeface(tf);
+//		
+//		Button btn = (Button)newAsig.findViewById(R.id.buttonCalcularPorcen);
+//		btn.setTypeface(tft);
+//		
+//		Button btn1 = (Button)newAsig.findViewById(R.id.buttonSalirPorcen);
+//		btn1.setTypeface(tft);
+//		
+//		btn.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				
+//				//verificar si la casilla rellenar  nota esta vacia para mostrar mensaje
+//				if (edtxt.getText().length()==0)
+//				{
+//					Toast.makeText(getActivity().getApplicationContext(),"Campo sin rellenar",Toast.LENGTH_SHORT).show();
+//					
+//				}
+//				else{
+//					BaseDatos cn = new BaseDatos(getActivity().getApplicationContext());
+//					SQLiteDatabase db = cn.getWritableDatabase();
+//					Double porcen = Double.parseDouble(edtxt.getText().toString());
+//					
+//					ClaseAsignaturas Asignatura = new ClaseAsignaturas();
+//					Asignatura.setNotaFinal(porcen);
+//					
+//					//txt1.setText(text);
+//
+//					cn.closeDB();
+//					db.close();
+//
+//					edtxt.setText("");
+//				}
+//			}
+//		});
+//		
+//		
+//		final Dialog dialog = new Dialog(getActivity());
+//		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//	    dialog.setContentView(newAsig);
+//	    dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//	    dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+//	    
+//	    btn1.setOnClickListener(new View.OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				dialog.dismiss();
+//			}
+//		});
+//	    
+//		//double calc = (5 - )/ );
+//		//Toast.makeText(getActivity(), "Debes sacar un "+calc +"X en el examen final para aprobar", Toast.LENGTH_LONG).show();
+//	}
 
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
