@@ -41,12 +41,11 @@ import android.widget.Toast;
 public class Principal extends FragmentActivity implements FragmentProvider {
 	//Declaramos las variables.
 	ImageView ico, sub;
-	TextView txtasig, txttotal, txtsobre, txtnotaexfin, txtmedia, txtsinasig;
+	TextView mAdd, txtsinasig;
 	RelativeLayout resul;
 	Intent in;
 	Spinner spinner;
 	int IDmodif;
-	TextView mAdd;
     ViewPager mPager;
     FragmentAsig And = new FragmentAsig();
     FragmentAsig Ando;
@@ -413,8 +412,7 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 		    return dialog1;
 
 		case 2:
-			//Añadir nota
-
+			//Modificar nota
 			LayoutInflater inflater2=(LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View modifNota = inflater2.inflate(R.layout.modificarnota_act, null);
 			
@@ -422,7 +420,7 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 			SQLiteDatabase db1 = cn1.getReadableDatabase();
 
 			ClaseCuatrimestres cuatri1 = cn1.getCuatrimestreDataBase(spinner.getSelectedItem().toString());
-			ClaseNotas notamodif =cn1.getNotaDataBase(IDmodif);
+			ClaseNotas notamodif = cn1.getNotaDataBase(IDmodif);
 			
 			Typeface tf11 = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
 			TextView txt31 = (TextView)modifNota.findViewById(R.id.textviewAsignatura);
@@ -540,6 +538,54 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 		    dialog2.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 		    dialog2.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
 		    return dialog2;
+		     
+		case 3:
+			//Confirmación eliminar asignatura
+			final BaseDatos cn3= new BaseDatos(getApplicationContext());
+			
+			LayoutInflater inflater3 = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			View confirmarEliminar = inflater3.inflate(R.layout.confimar_eliminar_act, null);
+			
+			ClaseCuatrimestres cuatri2 = cn3.getCuatrimestreDataBase(spinner.getSelectedItem().toString());
+			final String nombreAsig = cuatri2.getAsignatura(mPager.getCurrentItem()).getNombre();
+			
+			TextView txtAsigEliminar = (TextView)confirmarEliminar.findViewById(R.id.textviewAsignatura);
+			txtAsigEliminar.setText(nombreAsig);
+			
+			Button btnSi = (Button)confirmarEliminar.findViewById(R.id.buttonConfirmacionEliminarSi);
+			Button btnNo = (Button)confirmarEliminar.findViewById(R.id.buttonConfirmacionEliminarNo);
+			
+			btnSi.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					
+					//SQLiteDatabase db3= cn3.getWritableDatabase();
+					
+					removeCurrentItem();
+					
+					cn3.EliminarAsignatura(cn3.IdAsignatura(nombreAsig));
+					
+					cn3.closeDB();
+					dismissDialog(3);
+					
+				}
+			});
+			
+			btnNo.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					cn3.closeDB();
+					dismissDialog(3);
+				}
+			});
+			
+			Dialog dialog3 = new Dialog(this);
+			dialog3.requestWindowFeature(Window.FEATURE_NO_TITLE);
+			dialog3.setContentView(confirmarEliminar);
+		    return dialog3;
+			
 		}
 		return null;
 
@@ -568,7 +614,7 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 				
 			case 2:	
 				ClaseCuatrimestres cuatri1 = cn.getCuatrimestreDataBase(spinner.getSelectedItem().toString());
-				ClaseNotas notamodif =cn.getNotaDataBase(IDmodif);
+				ClaseNotas notamodif = cn.getNotaDataBase(IDmodif);
 				String nom1 = cuatri1.getAsignatura(mPager.getCurrentItem()).getNombre();
 				TextView txt31 = (TextView)dialog.findViewById(R.id.textviewAsignatura);
 				txt31.setText(nom1);
@@ -583,6 +629,16 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 				edtxtporcetaje1.setText(""+notamodif.getPorcentaje());
 
 				edtxtnota1.setText(""+notamodif.getNota());
+				break;
+				
+			case 3:
+				
+				ClaseCuatrimestres cuatri2 = cn.getCuatrimestreDataBase(spinner.getSelectedItem().toString());
+				final String nombreAsig = cuatri2.getAsignatura(mPager.getCurrentItem()).getNombre();
+				
+				TextView txtAsigEliminar = (TextView)dialog.findViewById(R.id.textviewAsignatura);
+				txtAsigEliminar.setText(nombreAsig);
+				
 				break;
 		}
 		
