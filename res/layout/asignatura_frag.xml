@@ -18,7 +18,6 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="17dp"
-            android:drawableLeft="@drawable/indicador_rojo_x"
             android:drawablePadding="10dp"
             android:text="ASIGNATURA"
             android:textSize="28sp" />

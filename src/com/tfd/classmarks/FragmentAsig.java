@@ -73,11 +73,6 @@ public class FragmentAsig extends Fragment{
 		// Configuración de objetos
 		Typeface tf = Typeface.createFromAsset(getActivity().getAssets(),"Roboto-Light.ttf");
 
-		//TextView txt = (TextView) fragment.findViewById(R.id.textViewAnd);
-	//	txt.setText(mText);
-//		txt.setTypeface(tf);
-
-		
 		//TextView nombre de la asignatura
 		final TextView txt = (TextView)fragment.findViewById(R.id.textViewAnd);
         txt.setText(mText);
@@ -87,12 +82,16 @@ public class FragmentAsig extends Fragment{
         Drawable indic = getActivity().getResources().getDrawable(R.drawable.indicador_verde_x);   
         Bitmap bm = ((BitmapDrawable)indic).getBitmap();
         final Drawable indicator = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bm, 22, 22, true));
-
-      //Código para crear y escalar el indicardor rojo
+        Log.d("indicador verde", "drawable creado");
+        txt.setCompoundDrawablesWithIntrinsicBounds(indicator, null, null, null);
+        Log.d("indicador verde", "drawable implementado");
+        //Código para crear y escalar el indicardor rojo
         Drawable indicR = getActivity().getResources().getDrawable(R.drawable.indicador_rojo_x);   
         Bitmap bm1 = ((BitmapDrawable)indicR).getBitmap();
         final Drawable indicatorR = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bm1, 22, 22, true));
-
+        Log.d("indicador rojo", "drawable creado");
+        txt.setCompoundDrawablesWithIntrinsicBounds(indicatorR, null, null, null);
+        Log.d("indicador rojo", "drawable implementado");
         
         ImageView x = (ImageView)fragment.findViewById(R.id.imageViewEliminar);
         
@@ -240,11 +239,13 @@ public class FragmentAsig extends Fragment{
 
 		double txtporrest = (100-txtsob);
 		double notanece = Math.round(((5-txttot)/(txtporrest/100)) * 100.0) / 100.0;
+		
 		if(txtmed >= 5){
-			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_verde_x, 0, 0, 0);
+			txt.setCompoundDrawablesWithIntrinsicBounds(indicator, null, null, null);
 		}else{
-			txt.setCompoundDrawablesWithIntrinsicBounds(R.drawable.indicador_rojo_x, 0, 0, 0);
+			txt.setCompoundDrawablesWithIntrinsicBounds(indicatorR, null, null, null);
 			}
+		
 		txttotal.setText(getString(R.string.Total)+ " "+txttot);
 		txtmedia.setText(getString(R.string.Media)+" "+ txtmed);
 		txtnotaneeded.setText(getString(R.string.recuadroo)+ " " + notanece + " ("+txtporrest+"%)");
