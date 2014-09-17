@@ -42,7 +42,6 @@ public class FragmentAsig extends Fragment{
 		final ListAdapter adap = new ListAdapter(getActivity(), items);
 		adap.notifyDataSetChanged();
 		
-
 		View footer = ((LayoutInflater)getActivity().getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.listview_forma_footer, null, false);
 		footer.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -68,16 +67,20 @@ public class FragmentAsig extends Fragment{
         Drawable indic = getActivity().getResources().getDrawable(R.drawable.indicador_verde_x);   
         Bitmap bm = ((BitmapDrawable)indic).getBitmap();
         final Drawable indicator = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bm, 22, 22, true));
-        Log.d("indicador verde", "drawable creado");
-        txt.setCompoundDrawablesWithIntrinsicBounds(indicator, null, null, null);
-        Log.d("indicador verde", "drawable implementado");
+        
+        
         //Código para crear y escalar el indicardor rojo
         Drawable indicR = getActivity().getResources().getDrawable(R.drawable.indicador_rojo_x);   
         Bitmap bm1 = ((BitmapDrawable)indicR).getBitmap();
         final Drawable indicatorR = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bm1, 22, 22, true));
-        Log.d("indicador rojo", "drawable creado");
-        txt.setCompoundDrawablesWithIntrinsicBounds(indicatorR, null, null, null);
-        Log.d("indicador rojo", "drawable implementado");
+        
+      //Código para crear y escalar el indicardor nulo
+        Drawable indicN = getActivity().getResources().getDrawable(R.drawable.indicador_nulo_x);   
+        Bitmap bm2 = ((BitmapDrawable)indicN).getBitmap();
+        final Drawable indicatorN = new BitmapDrawable(getResources(), Bitmap.createScaledBitmap(bm2, 22, 22, true));
+//        Log.d("indicador nulo", "drawable creado");
+//        txt.setCompoundDrawablesWithIntrinsicBounds(indicatorN, null, null, null);
+
         
         ImageView x = (ImageView)fragment.findViewById(R.id.imageViewEliminar);
         
@@ -92,9 +95,7 @@ public class FragmentAsig extends Fragment{
         final TextView txttotal = (TextView)fragment.findViewById(R.id.TVtotal);
 		final TextView txtmedia = (TextView)fragment.findViewById(R.id.TVmedia);
 		final TextView txtnotaneeded = (TextView)fragment.findViewById(R.id.TVnotaneeded);
-//		final TextView txtnotaexfin = (TextView)fragment.findViewById(R.id.TVnotaexfinal);
-//		final TextView txtsobre = (TextView)fragment.findViewById(R.id.TVsobre);
-//		
+
 		txttotal.setTypeface(tf);
 		txtmedia.setTypeface(tf);
 		txtnotaneeded.setTypeface(tf);
@@ -105,12 +106,11 @@ public class FragmentAsig extends Fragment{
 		 * 
 		*/
 		
-		ActionItem editItem = new ActionItem(ID_EDIT, "Edit", getResources().getDrawable(R.drawable.menu_down_arrow));
-		ActionItem eliminarItem = new ActionItem(ID_ELIMINAR, "Eliminar", getResources().getDrawable(R.drawable.menu_up_arrow));
+		ActionItem editItem = new ActionItem(ID_EDIT, null, getResources().getDrawable(R.drawable.menu_down_arrow));
+		ActionItem eliminarItem = new ActionItem(ID_ELIMINAR, null, getResources().getDrawable(R.drawable.menu_up_arrow));
 
 		// Crea un objeto QuickAction y determina que su orientación sea horizontal
-		final QuickAction quickAction = new QuickAction(getActivity(),
-				QuickAction.HORIZONTAL);
+		final QuickAction quickAction = new QuickAction(getActivity(), QuickAction.HORIZONTAL);
 
 		// add action items into QuickAction
 		quickAction.addActionItem(editItem);
@@ -121,7 +121,7 @@ public class FragmentAsig extends Fragment{
 			@Override
 			public void onItemClick(QuickAction source, int pos,
 					int actionId) {
-				ActionItem actionItem = quickAction.getActionItem(pos);
+				//ActionItem actionItem = quickAction.getActionItem(pos);
 				BaseDatos cn = new BaseDatos(getActivity().getApplicationContext());
 				SQLiteDatabase db = cn.getWritableDatabase();
 				// here we can filter which action item was clicked with
@@ -148,12 +148,18 @@ public class FragmentAsig extends Fragment{
 					double txtporrest = (100-txtsob);
 					double notanece = Math.round(((5-txttot)/(txtporrest/100)) * 100.0) / 100.0;
 
-					if(txtmed >= 5){
-						txt.setCompoundDrawablesWithIntrinsicBounds(indicator, null, null, null);
+					if(items.isEmpty() == true){
+						txt.setCompoundDrawablesWithIntrinsicBounds(indicatorN, null, null, null);
 					}else{
-						txt.setCompoundDrawablesWithIntrinsicBounds(indicatorR, null, null, null);
-					}
 
+						if(txtmed >= 5){
+							txt.setCompoundDrawablesWithIntrinsicBounds(indicator, null, null, null);
+						}
+						else{
+
+							txt.setCompoundDrawablesWithIntrinsicBounds(indicatorR, null, null, null);
+						}
+					}
 					txttotal.setText(getString(R.string.Total) + " " + txttot);
 					txtmedia.setText(getString(R.string.Media) + " " + txtmed);
 					txtnotaneeded.setText(getString(R.string.recuadroo)+ " " + notanece + " ("+txtporrest+")");
@@ -213,12 +219,18 @@ public class FragmentAsig extends Fragment{
 		double txtporrest = (100-txtsob);
 		double notanece = Math.round(((5-txttot)/(txtporrest/100)) * 100.0) / 100.0;
 		
-		if(txtmed >= 5){
-			txt.setCompoundDrawablesWithIntrinsicBounds(indicator, null, null, null);
+		if(items.isEmpty() == true){
+			txt.setCompoundDrawablesWithIntrinsicBounds(indicatorN, null, null, null);
 		}else{
-			txt.setCompoundDrawablesWithIntrinsicBounds(indicatorR, null, null, null);
+
+			if(txtmed >= 5){
+				txt.setCompoundDrawablesWithIntrinsicBounds(indicator, null, null, null);
 			}
-		
+			else{
+
+				txt.setCompoundDrawablesWithIntrinsicBounds(indicatorR, null, null, null);
+			}
+		}
 		txttotal.setText(getString(R.string.Total)+ " "+txttot);
 		txtmedia.setText(getString(R.string.Media)+" "+ txtmed);
 		txtnotaneeded.setText(getString(R.string.recuadroo)+ " " + notanece + " ("+txtporrest+"%)");

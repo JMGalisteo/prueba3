@@ -21,15 +21,6 @@ import android.view.ViewGroup;
 import java.util.List;
 import java.util.ArrayList;
 
-/**
- * QuickAction dialog, shows action list as icon and text like the one in Gallery3D app. Currently supports vertical 
- * and horizontal layout.
- * 
- * @author Lorensius W. L. T <lorenz@londatiga.net>
- * 
- * Contributors:
- * - Kevin Peck <kevinwpeck@gmail.com>
- */
 public class QuickAction extends PopupWindows implements OnDismissListener {
 	private View mRootView;
 	private ImageView mArrowUp;
@@ -157,7 +148,6 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
         container = mInflater.inflate(R.layout.action_item_horizontal, null);
 
 		ImageView img 	= (ImageView) container.findViewById(R.id.iv_icon);
-		TextView text 	= (TextView) container.findViewById(R.id.tv_title);
 		
 		if (icon != null) {
 			img.setImageDrawable(icon);
@@ -165,12 +155,7 @@ public class QuickAction extends PopupWindows implements OnDismissListener {
 			img.setVisibility(View.GONE);
 		}
 		
-		if (title != null) {
-			text.setText(title);
-		} else {
-			text.setVisibility(View.GONE);
-		}
-		
+
 		final int pos 		=  mChildPos;
 		final int actionId 	= action.getActionId();
 		

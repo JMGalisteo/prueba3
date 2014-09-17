@@ -15,8 +15,8 @@
         android:layout_alignParentTop="true"
         android:src="@drawable/icono_cm"
         android:background="@drawable/colorprincipal"
-        android:paddingLeft="3dp"
-        android:paddingRight="6dp"/>
+        android:paddingLeft="2dp"
+        android:paddingRight="3dp"/>
     
 <Spinner
         android:id="@+id/cuatrimestre_spinner"

@@ -8,5 +8,6 @@
     android:gravity="center"
     android:layout_width="2px"
     android:text=" "
-    android:background="#000000"/>    
+    android:background="#bccede"
+    android:paddingLeft="10dip"/>    
 </RelativeLayout>

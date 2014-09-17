@@ -44,7 +44,7 @@
             android:cacheColorHint="#FFFFFF"
             android:fadingEdgeLength="15dp"
             android:requiresFadingEdge="vertical"
-            android:scrollbarFadeDuration="1000" >
+            android:scrollbarFadeDuration="1000">
         </ListView>
 
         <!-- **** EMPEZAMOS EL DISEÑO DE LA TABLA **** -->

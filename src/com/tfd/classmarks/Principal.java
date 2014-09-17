@@ -610,38 +610,39 @@ public class Principal extends FragmentActivity implements FragmentProvider {
 			TextView txtAsigEliminar = (TextView)confirmarEliminar.findViewById(R.id.textviewAsignatura);
 			txtAsigEliminar.setText(nombreAsig);
 			
-			Button btnSi = (Button)confirmarEliminar.findViewById(R.id.buttonConfirmacionEliminarSi);
-			Button btnNo = (Button)confirmarEliminar.findViewById(R.id.buttonConfirmacionEliminarNo);
-			
-			btnSi.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					
-					//SQLiteDatabase db3= cn3.getWritableDatabase();
-					
-					removeCurrentItem();
-					
-					cn3.EliminarAsignatura(cn3.IdAsignatura(nombreAsig));
-					
-					cn3.closeDB();
-					dismissDialog(3);
-					
-				}
-			});
-			
-			btnNo.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					cn3.closeDB();
-					dismissDialog(3);
-				}
-			});
+//			Button btnSi = (Button)confirmarEliminar.findViewById(R.id.buttonConfirmacionEliminarSi);
+//			Button btnNo = (Button)confirmarEliminar.findViewById(R.id.buttonConfirmacionEliminarNo);
+//			
+//			btnSi.setOnClickListener(new View.OnClickListener() {
+//				
+//				@Override
+//				public void onClick(View v) {
+//					
+//					//SQLiteDatabase db3= cn3.getWritableDatabase();
+//					
+//					removeCurrentItem();
+//					
+//					cn3.EliminarAsignatura(cn3.IdAsignatura(nombreAsig));
+//					
+//					cn3.closeDB();
+//					dismissDialog(3);
+//					
+//				}
+//			});
+//			
+//			btnNo.setOnClickListener(new View.OnClickListener() {
+//				
+//				@Override
+//				public void onClick(View v) {
+//					cn3.closeDB();
+//					dismissDialog(3);
+//				}
+//			});
 			
 			Dialog dialog3 = new Dialog(this);
 			dialog3.requestWindowFeature(Window.FEATURE_NO_TITLE);
 			dialog3.setContentView(confirmarEliminar);
+			dialog3.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 		    return dialog3;
 			
 		}
